@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:insert="fragments.html :: head"></head>
+<body>
+<div class="header" >
+    <div class="header-left">
+        <div class="menu-icon bi bi-list"></div>
+    </div>
+</div>
+<div th:insert="fragments.html :: side-bar"></div>
+<div class="mobile-menu-overlay"></div>
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Simple Datatable start -->
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <a href="#" th:href="@{/student/teacher/{tId}(tId=${teacherId})}" style="font-size: 22px;"  >
+                                <i class="icon-copy fi-plus" ></i>
+                             </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                        <tr>
+                            <th class="table-plus datatable-nosort">Ф.И.О</th>
+                            <th> ANN</th>
+                            <th>Время </th>
+                            <th>Дата</th>
+                            <th>Даты проведения курсов</th>
+                            <th>Разговор</th>
+                            <th>Письмо</th>
+                            <th>Итог</th>
+                            <th>Сдал(a)</th>
+                            <th>Уровень</th>
+                            <th>Комментарий</th>
+                            <th class="datatable-nosort">Действие</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        <tr th:each="result: ${examResults}" th:if="${result.getLevel()} != null">
+                            <td class="table-plus" th:text="${result.getStudentName()}"></td>
+                            <td th:text="${result.getAnn()}"></td>
+                            <td th:text="${result.getTime()}"></td>
+                            <td th:text="${result.getDate()}"></td>
+                            <td th:text="${result.getCourseDates()}"></td>
+                            <td th:text="${result.getSpeaking()}"></td>
+                            <td th:text="${result.getWriting()}"></td>
+                            <td th:text="${result.getTotal()}"></td>
+                            <td th:if="${result.getResult() != 'сдал(a)'}" style="height:50px;">
+                                <i class="icon-copy ion-minus-round" ></i>
+                            </td>
+                            <td th:if="${result.getResult() == 'сдал(a)'}">
+                                <i class="icon-copy ion-checkmark"></i>
+                            </td>
+                            <td th:text="${result.getLevel()}"></td>
+                            <td th:text="${result.getComment()}"></td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" type="btn" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item " th:href="@{/exam/result/edit/{id}/teacher/{tId}(id=${result.id},tId=${result.getTeacher().getId()})}" >
+                                            <i class="dw dw-edit2"></i>
+                                            Edit
+                                        </a>
+                                        <input type="hidden" id="id" th:value="${result.id}">
+                                        <a  class="dropdown-item delBtn" href="#" th:href="@{/exam/result/delete/{id}/teacher/{tId}(id=${result.id},tId=${result.getTeacher().getId()})}">
+                                            <i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div th:insert="fragments.html :: footer"></div>
+
+
+<script type="text/javascript" th:src="@{/src/scripts/main.js}"></script>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:insert="fragments.html :: head"></head>
+<body>
+<div class="header" >
+    <div class="header-left">
+        <div class="menu-icon bi bi-list"></div>
+    </div>
+</div>
+<div th:insert="fragments.html :: side-bar"></div>
+<div class="mobile-menu-overlay"></div>
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Simple Datatable start -->
+            <div class="card-box mb-30">
+                <div class="pb-20">
+
+                    <div class="row pt-3 pb-3">
+                        <div class="col-sm-5 col-md-5 ">
+                            <form th:action="@{/searchmanager}" method="post">
+                                <input type="text" name="studentName"  placeholder="Find by StudentName" style="display: inline">
+                                <button type="submit" class="btn btn-success  " style="display: inline" >Search</button>
+                            </form>
+                        </div>
+                        <div class="col-sm-6 col-md-6 ">
+                            <form th:action="@{/searchlevel}" method="post">
+                                <select id="cars" name="level">
+                                    <option >A 0.5</option>
+                                    <option >A 1.1</option>
+                                    <option >A 1.2</option>
+                                    <option >A 2.1</option>
+                                    <option >A 2.2</option>
+                                    <option >B 1-</option>
+                                    <option >B 1+</option>
+                                </select>
+                                <button type="submit" class="btn btn-success  " style="display: inline" >Search</button>
+                            </form>
+
+                        </div>
+                    </div>
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                        <tr>
+                            <th class="table-plus datatable-nosort">Ф.И.О студентов</th>
+                            <th>ANN</th>
+                            <th>Дата начала</th>
+                            <th>Уровень</th>
+                            <th>Преподаватель</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="result: ${examResults}" th:if="${result.getLevel()} != null">
+                            <td class="table-plus" th:text="${result.getStudentName()}"></td>
+                            <td th:text="${result.getAnn()}"></td>
+                            <td th:text="${result.getDate()}"></td>
+                            <td th:text="${result.getLevel()}"></td>
+                            <td th:text="${result.getTeacherName()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div th:insert="fragments.html :: footer"></div>
+
+
+<script type="text/javascript" th:src="@{/src/scripts/main.js}"></script>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

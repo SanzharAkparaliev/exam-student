@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:insert="fragments.html :: head"></head>
+<body>
+<div class="header" >
+    <div class="header-left">
+        <div class="menu-icon bi bi-list"></div>
+    </div>
+</div>
+<div th:insert="fragments.html :: side-bar"></div>
+<div class="mobile-menu-overlay"></div>
+
+<div class="main-container" style="background: #0c0c0c">
+
+        <div  class="jumbotron" style="background: #0c0c0c;height: 500px" >
+            <div class=" text-center" width="4200" height="4200">
+                <img th:src="@{/src/images/photo.png}">
+            </div>
+        </div>
+</div>
+<div th:insert="fragments.html :: footer"></div>
+
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

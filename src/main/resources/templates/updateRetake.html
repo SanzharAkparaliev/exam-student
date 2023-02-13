@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:insert="fragments.html :: head"></head>
+<body>
+<div class="header" >
+    <div class="header-left">
+        <div class="menu-icon bi bi-list"></div>
+    </div>
+</div>
+<div th:insert="fragments.html :: side-bar"></div>
+<div class="mobile-menu-overlay"></div>
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Simple Datatable start -->
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <form method="post" th:action="@{/updateRetake}" action="#"  th:if="${student != null}" th:object="${student}" >
+                        <input type="text" class="form-control" th:value="${student.getStudentName()}" placeholder="ФИО" name="studentName"  >
+                        <label></label>
+                        <input type="text" class="form-control" th:value="${student.getAnn()}" placeholder="ANN" name="ann"  >
+                        <label></label>
+                        <input class="form-control" type="text" th:value="${student.getId()}" name="id">
+                        <label></label>
+                        <div class="form-group">
+                            <input type="date" name="date" id="date" th:value="${student.getDate()}" class="form-control"  placeholder="Выберите дату" required>
+                            <label></label>
+
+                            <select class="form-control" name="time"  th:value="${student.getTime()}">
+                                <option th:text="${student.getTime()}" selected></option>
+                                <option>8:00</option>
+                                <option>9:30</option>
+                                <option>11:00</option>
+                                <option>12:30</option>
+                                <option>14:00</option>
+                                <option>15:30</option>
+                                <option>17:00</option>
+                                <option>18:30</option>
+                                <option>20:00</option>
+                            </select>
+                        </div>
+                        <label></label>
+                        <input type="number" class="form-control" placeholder="Разговор" min="0" name="speaking" th:value="${student.getSpeaking()}" required>
+                        <label></label>
+                        <input type="number" class="form-control" placeholder="Письмо" min="0" name="writing" th:value="${student.getWriting()}" required>
+                        <label></label>
+                        <div class="form-group">
+                            <select class="form-control" name="result" id="exampleFormControlSelect1" th:value="${student.getResult()}">
+                                <option selected th:text="${student.getResult()}"></option>
+                                <option>сдал(a)</option>
+                                <option>не сдал(а)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="level"  th:value="${student.getLevel()}">
+                                <option selected th:text="${student.getLevel()}"></option>
+                                <option>A 0.5</option>
+                                <option>A 1.1</option>
+                                <option>A 1.2</option>
+                                <option>A 2.1</option>
+                                <option>A 2.2</option>
+                                <option>B 1-</option>
+                                <option>B 1+</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Комментарий" name="comment" th:value="${student.getComment()}" required>
+                        <label></label>
+                        <div class="modal-footer">
+                            <button type="submit"  class="btn btn-primary">Отправить</button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="pb-20">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:insert="fragments.html :: footer"></div>
+
+
+<script type="text/javascript" th:src="@{/src/scripts/main.js}"></script>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
