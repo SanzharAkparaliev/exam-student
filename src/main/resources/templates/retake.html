@@ -21,11 +21,26 @@
                 </div>
                 <div class="pb-20">
                     <div class="row mb-2">
-                        <div class="col-sm-12 col-md-6 ml-2">
+                        <div class="col-sm-5 col-md-5 ml-2">
                              <form th:action="@{/searchretake}" method="post">
                                 <input type="text" name="studentName"  placeholder="Find by StudentName" style="display: inline">
                                 <button type="submit" class="btn btn-success  " style="display: inline" >Search</button>
                            </form>
+                        </div>
+                        <div class="col-sm-6 col-md-6 ">
+                            <form th:action="@{/searchlevelbyretake}" method="post">
+                                <select id="cars" name="level">
+                                    <option >A 0.5</option>
+                                    <option >A 1.1</option>
+                                    <option >A 1.2</option>
+                                    <option >A 2.1</option>
+                                    <option >A 2.2</option>
+                                    <option >B 1-</option>
+                                    <option >B 1+</option>
+                                </select>
+                                <button type="submit" class="btn btn-success  " style="display: inline" >Search</button>
+                            </form>
+
                         </div>
                     </div>
                     <table class="data-table table stripe hover nowrap">

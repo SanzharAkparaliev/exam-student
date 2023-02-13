@@ -14,4 +14,7 @@ public interface RetakeRepository extends JpaRepository<Retake,Long> {
 
     @Query(value = "select * from retake r where r.student_name like %:keyword% ", nativeQuery = true)
     public List<Retake> findByKeyWord(@Param("keyword") String keyword);
+
+    public List<Retake> findByLevel(String level);
+
 }

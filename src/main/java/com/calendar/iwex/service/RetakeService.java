@@ -97,4 +97,8 @@ public class RetakeService {
     public List<Retake> searchRetakeResultByStudentName(String studentName){
         return retakeRepository.findByKeyWord(studentName);
     }
+
+    public List<Retake> searchRetakeResultByLevel(String level){
+        return retakeRepository.findByLevel(level);
+    }
 }

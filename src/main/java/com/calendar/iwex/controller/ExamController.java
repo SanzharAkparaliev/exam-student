@@ -164,4 +164,26 @@ public class ExamController {
         return "retake";
     }
 
+    @PostMapping("/searchlevelbyretake")
+    public String searchRetakeByLevel(@RequestParam("level") String level,Model model){
+        List<Teacher> teachers = teacherService.getAllTeacher();
+
+        if(level!=null){
+            List<Retake> list = retakeService.searchRetakeResultByLevel(level);
+
+            model.addAttribute("teachers",teachers);
+            model.addAttribute("title","Пересдача");
+            model.addAttribute("exam",new Exam());
+            model.addAttribute("examResults",list);
+        }else {
+            List<Retake> allRetake = retakeService.getAllRetake();
+            model.addAttribute("teachers",teachers);
+            model.addAttribute("title","Пересдача");
+            model.addAttribute("exam",new Exam());
+            model.addAttribute("examResults",allRetake);
+        }
+
+        return "retake";
+    }
+
 }
