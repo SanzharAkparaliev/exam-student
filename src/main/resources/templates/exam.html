@@ -45,8 +45,7 @@
                         <tbody>
 
 
-                        <tr th:each="result,iStat: ${examResults}" th:if="${result.getLevel()} != null">
-                            <th scope="row" th:text="${iStat.index + 1}">1</th>
+                        <tr th:each="result: ${examResults}" th:if="${result.getLevel()} != null">
                             <td class="table-plus" th:text="${result.getStudentName()}"></td>
                             <td th:text="${result.getAnn()}"></td>
                             <td th:text="${result.getTime()}"></td>
