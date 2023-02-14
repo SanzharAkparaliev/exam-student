@@ -35,4 +35,10 @@ public class TeacherService {
         Optional<Teacher> teacher = teacherRepository.findById(id);
         teacherRepository.delete(teacher.get());
     }
+
+    public void  updateTeacher(Teacher teacher){
+        Teacher teacherInDb = teacherRepository.findById(teacher.getId()).get();
+        teacherInDb.setName(teacher.getName());
+        teacherRepository.save(teacherInDb);
+    }
 }

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:insert="fragments.html :: head"></head>
+<body>
+<div class="header" >
+    <div class="header-left">
+        <div class="menu-icon bi bi-list"></div>
+    </div>
+</div>
+<div th:insert="fragments.html :: side-bar"></div>
+<div class="mobile-menu-overlay"></div>
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Simple Datatable start -->
+            <!-- Contextual classes Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Teacher</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="teacher: ${teachers}" class="table-active">
+                            <td th:text="${teacher.getName()}">Teacher Name</td>
+                            <td>
+                                <a  class="col-2 btn "  th:href="@{/teacher/edit/{id}(id=${teacher.id})}">
+                                    <span class="bi bi-pencil"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a  class="col-2 btn delBtn"  th:href="@{/teacher/delete/{id}(id=${teacher.id})}">
+                                    <span class="bi bi-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="collapse collapse-box" id="contextual-table">
+                    <div class="code-box">
+                        <div class="clearfix">
+                            <a
+                                    href="javascript:;"
+                                    class="btn btn-primary btn-sm code-copy pull-left"
+                                    data-clipboard-target="#contextual-table-code"
+                            ><i class="fa fa-clipboard"></i> Copy Code</a
+                            >
+                            <a
+                                    href="#contextual-table"
+                                    class="btn btn-primary btn-sm pull-right"
+                                    rel="content-y"
+                                    data-toggle="collapse"
+                                    role="button"
+                            ><i class="fa fa-eye-slash"></i> Hide Code</a
+                            >
+                        </div>
+                        <pre><code class="xml copy-pre" id="contextual-table-code">
+<div class="table-responsive">
+	<table class="table table-striped">
+	  <tbody>
+	    <tr class="table-active"><td></td></tr>
+		<tr class="table-primary"><td></td></tr>
+		<tr class="table-secondary"><td></td></tr>
+		<tr class="table-success"><td></td></tr>
+		<tr class="table-danger"><td></td></tr>
+		<tr class="table-warning"><td></td></tr>
+		<tr class="table-info"><td></td></tr>
+		<tr class="table-light"><td></td></tr>
+		<tr class="table-dark"><td></td></tr>
+	  </tbody>
+	</table>
+</div>
+							</code></pre>
+                    </div>
+                </div>
+            </div>
+            <!-- Contextual classes End -->
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div th:insert="fragments.html :: footer"></div>
+
+</body>
+</html>

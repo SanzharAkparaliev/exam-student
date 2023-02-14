@@ -53,17 +53,10 @@
                         <span class="mtext">Экзамен</span>
                     </a>
                     <ul class="submenu">
-                        <li th:each="teacher: ${teachers}" class="row">
-                            <a class="col-6" href="#" th:href="@{/teacher/{id}(id=${teacher.id})}">
+                        <li th:each="teacher: ${teachers}">
+                            <a  href="#" th:href="@{/teacher/{id}(id=${teacher.id})}">
                                 <span class="mtext" th:text="${teacher.getName()}">Teacher</span>
                             </a>
-<!--                            <a  class="col-2 btn " id="deleteButton" name="deleteButton" th:href="@{/teacher/delete/{id}(id=${teacher.id})}">-->
-<!--                                <span class="bi bi-trash"></span>-->
-<!--                            </a>-->
-                            <a  class="col-2 btn delBtn"  th:href="@{/teacher/delete/{id}(id=${teacher.id})}">
-                                <span class="bi bi-trash"></span>
-                            </a>
-
                         </li>
                         <li class="text-center">
                             <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">
@@ -91,6 +84,12 @@
                     <a href="#" th:href="@{/edit/calendar}" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-calendar-plus"></span>
                         <span class="mtext">Расписание</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" th:href="@{/edit/teacher}" class="dropdown-toggle no-arrow">
+                        <span class="micon bi bi-pencil-square"></span>
+                        <span class="mtext">Teachers</span>
                     </a>
                 </li>
             </ul>
@@ -168,6 +167,7 @@
     </div>
     <script th:src="@{/vendors/scripts/core.js}"></script>
     <script th:src="@{/vendors/scripts/script.min.js}"></script>
+
     <script type="text/javascript" >
         $('document').ready(function (){
             $('.dropdown .delBtn').on('click', function(event) {
@@ -179,9 +179,6 @@
 
         })
     </script>
-
-
-
 </div>
 </body>
 </html>

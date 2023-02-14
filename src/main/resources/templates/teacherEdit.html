@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:insert="fragments.html :: head"></head>
+<body>
+<div class="header" >
+  <div class="header-left">
+    <div class="menu-icon bi bi-list"></div>
+  </div>
+</div>
+<div th:insert="fragments.html :: side-bar"></div>
+<div class="mobile-menu-overlay"></div>
+<div class="main-container">
+  <div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+      <!-- Simple Datatable start -->
+      <div class="card-box row mb-30">
+<!--        <div class="pd-20 col" >-->
+<!--          <form method="post" th:action="@{/updateTeacher}" action="#"  >-->
+<!--            <input type="text" class="form-control" th:value="${teacher.getName()}" placeholder="ФИО" name="name"  >-->
+<!--              <button type="submit"  class="btn btn-primary">Отправить</button>-->
+<!--          </form>-->
+<!--        </div>-->
+        <div class="col-sm-5 col-md-5 ml-2">
+          <form method="post" th:action="@{/updateTeacher}" action="#">
+              <input type="hidden" name="id" th:value="${teacher.getId()}">
+               <input type="text"  th:value="${teacher.getName()}" placeholder="ФИО" name="name" style="display:inline" >
+               <button type="submit"  class="btn btn-primary" style="display: inline">Отправить</button>
+          </form>
+        </div>
+
+       </div>
+      </div>
+
+              </div>
+
+            </div>
+
+            <div th:insert="fragments.html :: footer"></div>
+
+
+            <script type="text/javascript" th:src="@{/src/scripts/main.js}"></script>
+            <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
