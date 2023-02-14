@@ -13,73 +13,52 @@
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
             <!-- Simple Datatable start -->
-            <!-- Contextual classes Start -->
-            <div class="pd-20 card-box mb-30">
-                <div class="table-responsive">
-                    <table class="table">
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <a href="#" th:href="@{/student/teacher/{tId}(tId=${teacherId})}" style="font-size: 22px;"  >
+                                <i class="icon-copy fi-plus" ></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap">
                         <thead>
                         <tr>
-                            <th scope="col">Teacher</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th class="table-plus datatable-nosort">Ф.И.О</th>
+
+                            <th class="datatable-nosort">Действие</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="teacher: ${teachers}" class="table-active">
-                            <td th:text="${teacher.getName()}">Teacher Name</td>
+
+
+                        <tr th:each="teacher: ${teachers}"  >
+                            <td class="table-plus" th:text="${teacher.getName()}"></td>
                             <td>
-                                <a  class="col-2 btn "  th:href="@{/teacher/edit/{id}(id=${teacher.id})}">
-                                    <span class="bi bi-pencil"></span>
-                                </a>
-                            </td>
-                            <td>
-                                <a  class="col-2 btn delBtn"  th:href="@{/teacher/delete/{id}(id=${teacher.id})}">
-                                    <span class="bi bi-trash"></span>
-                                </a>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" type="btn" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item " th:href="@{/teacher/edit/{id}(id=${teacher.id})}" >
+                                            <i class="dw dw-edit2"></i>
+                                            Edit
+                                        </a>
+                                        <a  class="dropdown-item delBtn" href="#" th:href="@{/teacher/delete/{id}(id=${teacher.id})}">
+                                            <i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
+
                         </tbody>
                     </table>
                 </div>
-                <div class="collapse collapse-box" id="contextual-table">
-                    <div class="code-box">
-                        <div class="clearfix">
-                            <a
-                                    href="javascript:;"
-                                    class="btn btn-primary btn-sm code-copy pull-left"
-                                    data-clipboard-target="#contextual-table-code"
-                            ><i class="fa fa-clipboard"></i> Copy Code</a
-                            >
-                            <a
-                                    href="#contextual-table"
-                                    class="btn btn-primary btn-sm pull-right"
-                                    rel="content-y"
-                                    data-toggle="collapse"
-                                    role="button"
-                            ><i class="fa fa-eye-slash"></i> Hide Code</a
-                            >
-                        </div>
-                        <pre><code class="xml copy-pre" id="contextual-table-code">
-<div class="table-responsive">
-	<table class="table table-striped">
-	  <tbody>
-	    <tr class="table-active"><td></td></tr>
-		<tr class="table-primary"><td></td></tr>
-		<tr class="table-secondary"><td></td></tr>
-		<tr class="table-success"><td></td></tr>
-		<tr class="table-danger"><td></td></tr>
-		<tr class="table-warning"><td></td></tr>
-		<tr class="table-info"><td></td></tr>
-		<tr class="table-light"><td></td></tr>
-		<tr class="table-dark"><td></td></tr>
-	  </tbody>
-	</table>
-</div>
-							</code></pre>
-                    </div>
-                </div>
+
             </div>
-            <!-- Contextual classes End -->
 
         </div>
 
@@ -91,5 +70,8 @@
 
 <div th:insert="fragments.html :: footer"></div>
 
+
+<script type="text/javascript" th:src="@{/src/scripts/main.js}"></script>
+<!-- End Google Tag Manager (noscript) -->
 </body>
 </html>

@@ -81,16 +81,28 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" th:href="@{/edit/calendar}" class="dropdown-toggle no-arrow">
-                        <span class="micon bi bi-calendar-plus"></span>
-                        <span class="mtext">Расписание</span>
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-file-person"></span>
+                        <span class="mtext">ADMIN</span>
                     </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" th:href="@{/edit/teacher}" class="dropdown-toggle no-arrow">
-                        <span class="micon bi bi-pencil-square"></span>
-                        <span class="mtext">Teachers</span>
-                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="#" th:href="@{/edit/calendar}" class="dropdown-toggle no-arrow">
+                                <span class="mtext">Расписание</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" th:href="@{/edit/teacher}" class="dropdown-toggle no-arrow">
+                                <span class="mtext">Teachers</span>
+                            </a>
+                        </li>
+                        <li class="text-center">
+                            <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">
+                                <span class="micon bi bi-plus-lg" style="font-size: 22px; color: #FFFFFF"></span>
+                            </button>
+                        </li>
+
+                    </ul>
                 </li>
             </ul>
         </div>
