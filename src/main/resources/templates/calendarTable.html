@@ -19,7 +19,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-
+                            <th>ID</th>
                             <th scope="col">Teacher</th>
                             <th scope="col">Group.</th>
                             <th scope="col">Date</th>
@@ -28,8 +28,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="event: ${allEvent}" th:if="${event.getTeacherName()} != null"class="table-active">
-
+                        <tr th:each="event,iStat: ${allEvent}" th:if="${event.getTeacherName()} != null"class="table-active">
+                            <th scope="row" th:text="${iStat.index + 1}">1</th>
                             <td th:text="${event.getTeacherName()}">Teacher</td>
                             <td th:text="${event.getGruppa()}">Group</td>
                             <td th:text="${event.getDay().getDate()}">Date</td>

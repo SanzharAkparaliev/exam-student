@@ -46,6 +46,7 @@
                     <table class="data-table table stripe hover nowrap">
                         <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Время </th>
                             <th>Дата</th>
                             <th class="table-plus datatable-nosort">Ф.И.О</th>
@@ -61,7 +62,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="result: ${examResults}" th:if="${result.getLevel()} != null">
+                        <tr th:each="result,iStat: ${examResults}" th:if="${result.getLevel()} != null">
+                            <th scope="row" th:text="${iStat.index + 1}">1</th>
                             <td th:text="${result.getTime()}"></td>
                             <td th:text="${result.getDate()}"></td>
                             <td class="table-plus" th:text="${result.getStudentName()}"></td>

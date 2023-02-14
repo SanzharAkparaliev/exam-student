@@ -27,6 +27,7 @@
                     <table class="data-table table stripe hover nowrap">
                         <thead>
                         <tr>
+                            <th>ID</th>
                             <th class="table-plus datatable-nosort">Ф.И.О</th>
 
                             <th class="datatable-nosort">Действие</th>
@@ -35,7 +36,8 @@
                         <tbody>
 
 
-                        <tr th:each="teacher: ${teachers}"  >
+                        <tr th:each="teacher,iStat: ${teachers}"  >
+                            <th scope="row" th:text="${iStat.index + 1}">1</th>
                             <td class="table-plus" th:text="${teacher.getName()}"></td>
                             <td>
                                 <div class="dropdown">
