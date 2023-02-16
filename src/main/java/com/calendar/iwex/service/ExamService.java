@@ -89,6 +89,9 @@ public class ExamService {
         Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
         System.out.println("Result " + retake.getResult());
         exambyAnn.setResult(retake.getResult());
+        exambyAnn.setTotal(retake.getTotal());
+        exambyAnn.setSpeaking(retake.getSpeaking());
+        exambyAnn.setWriting(retake.getWriting());
         examRepository.save(exambyAnn);
     }
 }
