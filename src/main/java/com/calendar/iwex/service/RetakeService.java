@@ -55,6 +55,40 @@ public class RetakeService {
             }
 
     }
+    public void createRatekeByRetake(Retake exam){
+        Retake byAnnRetake = retakeRepository.findByAnn(exam.getAnn());
+        if (byAnnRetake != null){
+            LocalDate Date = LocalDate.parse(exam.getDate());
+            byAnnRetake.setStudentName(exam.getStudentName());
+            byAnnRetake.setTime(exam.getTime());
+            byAnnRetake.setSpeaking(exam.getSpeaking());
+            byAnnRetake.setWriting(exam.getWriting());
+            byAnnRetake.setTotal(exam.getTotal());
+            byAnnRetake.setCount(byAnnRetake.getCount() + 1);
+            byAnnRetake.setDate(String.valueOf(Date.plusDays(7)));
+            byAnnRetake.setAnn(exam.getAnn());
+            byAnnRetake.setLevel(exam.getLevel());
+            byAnnRetake.setComment(exam.getComment());
+            byAnnRetake.setResult(exam.getResult());
+            retakeRepository.save(byAnnRetake);
+        }else {
+            LocalDate Date = LocalDate.parse(exam.getDate());
+            Retake retake = new Retake();
+            retake.setStudentName(exam.getStudentName());
+            retake.setTime(exam.getTime());
+            retake.setDate(String.valueOf(Date.plusDays(7)));
+            retake.setAnn(exam.getAnn());
+            retake.setTotal(exam.getTotal());
+            retake.setSpeaking(exam.getSpeaking());
+            retake.setWriting(exam.getWriting());
+            retake.setComment(exam.getComment());
+            retake.setCount(0);
+            retake.setLevel(exam.getLevel());
+            retake.setResult(exam.getResult());
+            retakeRepository.save(retake);
+        }
+
+    }
 
     public List<Retake> getAllRetake(){
         return retakeRepository.findAll();
@@ -63,6 +97,9 @@ public class RetakeService {
     public void deleteRetaeke(Long studentId){
         Optional<Retake> byIdRetake = retakeRepository.findById(studentId);
         retakeRepository.delete(byIdRetake.get());
+    }
+    public Retake findByRetakeByAnn(String ann){
+        return retakeRepository.findByAnn(ann);
     }
 
     public Optional<Retake> getRetake(Long id){

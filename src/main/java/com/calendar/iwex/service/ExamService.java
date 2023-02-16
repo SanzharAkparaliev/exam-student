@@ -77,7 +77,15 @@ public class ExamService {
         newExam.setAnn(exam.getAnn());
         newExam.setTotal(exam.getSpeaking() + exam.getWriting());
         if(exam.getResult().equals("не сдал(а)")){
-            retakeService.createRateke(newExam);
+            Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getAnn());
+            if(byRetakeByAnn == null){
+                retakeService.createRateke(newExam);
+            }else {
+                byRetakeByAnn.setSpeaking(exam.getSpeaking());
+                byRetakeByAnn.setWriting(exam.getWriting());
+                byRetakeByAnn.setTotal(exam.getTotal());
+                retakeService.createRatekeByRetake(byRetakeByAnn);
+            }
         }
         examRepository.save(newExam);
     }
@@ -87,7 +95,6 @@ public class ExamService {
 
     public void updateExamRetake(Retake retake){
         Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
-        System.out.println("Result " + retake.getResult());
         exambyAnn.setResult(retake.getResult());
         exambyAnn.setTotal(retake.getTotal());
         exambyAnn.setSpeaking(retake.getSpeaking());
