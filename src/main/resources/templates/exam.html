@@ -17,7 +17,7 @@
                 <div class="pd-20">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
-                            <a href="#" th:href="@{/student/teacher/{tId}(tId=${teacherId})}" style="font-size: 22px;"  >
+                            <a href="#" th:href="@{/teacher/group/{tId}(tId=${groupId})}" style="font-size: 22px;"  >
                                 <i class="icon-copy fi-plus" ></i>
                              </a>
                         </div>
@@ -67,12 +67,12 @@
                                         <i class="dw dw-more"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item " th:href="@{/exam/result/edit/{id}/teacher/{tId}(id=${result.id},tId=${result.getTeacher().getId()})}" >
+                                        <a class="dropdown-item " th:href="@{/exam/result/edit/{id}/teacher/{tId}(id=${result.id},tId=${result.getGruppa().getId()})}" >
                                             <i class="dw dw-edit2"></i>
                                             Edit
                                         </a>
                                         <input type="hidden" id="id" th:value="${result.id}">
-                                        <a  class="dropdown-item delBtn" href="#" th:href="@{/exam/result/delete/{id}/teacher/{tId}(id=${result.id},tId=${result.getTeacher().getId()})}">
+                                        <a  class="dropdown-item delBtn" href="#" th:href="@{/exam/result/delete/{id}/teacher/{tId}(id=${result.id},tId=${result.getGruppa().getId()})}">
                                             <i class="dw dw-delete-3"></i> Delete
                                         </a>
                                     </div>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GruppaService {
@@ -22,5 +23,9 @@ public class GruppaService {
 
     public List<Gruppa> getAllGruppa(){
         return gruppaRepository.findAll();
+    }
+
+    public Optional<Gruppa> getGruppaById(Long id){
+        return gruppaRepository.findById(id);
     }
 }

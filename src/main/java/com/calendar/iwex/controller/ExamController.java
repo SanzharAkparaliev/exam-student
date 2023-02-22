@@ -1,9 +1,6 @@
 package com.calendar.iwex.controller;
 
-import com.calendar.iwex.entity.Exam;
-import com.calendar.iwex.entity.Retake;
-import com.calendar.iwex.entity.StudentInDb;
-import com.calendar.iwex.entity.Teacher;
+import com.calendar.iwex.entity.*;
 import com.calendar.iwex.helper.Message;
 import com.calendar.iwex.service.ExamService;
 import com.calendar.iwex.service.RetakeService;
@@ -43,14 +40,14 @@ public class ExamController {
 //        return "exam";
 //    }
 //
-//    @PostMapping("/save")
-//    public String saveStudentExamInfo(@RequestParam("teacherId") Long id,
-//                                      @ModelAttribute("exam") Exam exam,
-//                                      @RequestParam("ann") String ann
-//                                      ){
-//        examService.saveExam(exam,id);
-//        return "redirect:/teacher/" + id;
-//    }
+    @PostMapping("/save")
+    public String saveStudentExamInfo(@RequestParam("groupId") Long id,
+                                      @ModelAttribute("exam") Exam exam,
+                                      @RequestParam("ann") String ann
+                                      ){
+        examService.saveExam(exam,id);
+        return "redirect:/group/get" + id;
+    }
 //    @PostMapping("/update")
 //    public String updateStudentExamInfo(@RequestParam("teacherId") Long id,
 //                                      @ModelAttribute("exam") Exam exam,
@@ -59,7 +56,7 @@ public class ExamController {
 //        examService.updateExam(exam);
 //        return "redirect:/teacher/" + id;
 //    }
-//
+
 //
 //
 //    @GetMapping("/exam/result/delete/{id}/teacher/{tId}")
@@ -89,18 +86,18 @@ public class ExamController {
 //
 //
 //
-//    @GetMapping("/student/teacher/{id}")
-//    public String getStudentFormPage(Model model, HttpSession session, @PathVariable("id") Long teacherId){
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//        List<Retake> allRetake = retakeService.getAllRetake();
-//        model.addAttribute("teachers",teachers);
-//        model.addAttribute("title","Студент");
-//        model.addAttribute("exam",new Exam());
-//        model.addAttribute("examResults",allRetake);
-//        model.addAttribute("teacherId",teacherId);
-//        model.addAttribute("student",session.getAttribute("student"));
-//        return "studentForm";
-//    }
+    @GetMapping("/teacher/group/{id}")
+    public String getStudentFormPage(Model model, HttpSession session, @PathVariable("id") Long groupId){
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+        List<Retake> allRetake = retakeService.getAllRetake();
+        model.addAttribute("teachers",teachers);
+        model.addAttribute("title","Студент");
+        model.addAttribute("exam",new Exam());
+        model.addAttribute("examResults",allRetake);
+        model.addAttribute("groupId",groupId);
+        model.addAttribute("student",session.getAttribute("student"));
+        return "studentForm";
+    }
 //
 //    @GetMapping("/retake")
 //    public String getRetakePage(Model model){
