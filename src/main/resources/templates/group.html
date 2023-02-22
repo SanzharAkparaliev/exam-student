@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:insert="fragments.html :: head"></head>
+<body>
+<div class="header" >
+  <div class="header-left">
+    <div class="menu-icon bi bi-list"></div>
+  </div>
+</div>
+<div th:insert="fragments.html :: side-bar"></div>
+<div class="mobile-menu-overlay"></div>
+<div class="main-container">
+  <div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+      <div class="card-box row mb-30">
+        <div class="col-sm-12 col-md-12 ">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <form method="post" action="#" th:action="@{/saveGroup}" >
+                      <input type="text" class="form-control" placeholder="Группа" name="gruppa"  required>
+                      <input type="hidden" name="teacher_id" th:value="${teacherId}">
+                      <div class="modal-footer">
+                          <button type="reset" class="btn btn-secondary">Сбросить</button>
+                          <button type="submit"  class="btn btn-primary">Сохранить</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<div th:insert="fragments.html :: footer"></div>
+
+</body>
+</html>

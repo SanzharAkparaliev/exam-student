@@ -23,5 +23,4 @@ public class Manager {
     private String ann;
     private String date;
     private String level;
-    private String teacherName;
 }

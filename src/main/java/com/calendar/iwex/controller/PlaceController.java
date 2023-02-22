@@ -3,6 +3,7 @@ package com.calendar.iwex.controller;
 import com.calendar.iwex.entity.Day;
 import com.calendar.iwex.entity.Event;
 import com.calendar.iwex.entity.Teacher;
+import com.calendar.iwex.entity.TeacherModel;
 import com.calendar.iwex.service.DayService;
 import com.calendar.iwex.service.EventService;
 import com.calendar.iwex.service.TeacherService;
@@ -41,7 +42,7 @@ public class PlaceController {
         LocalDate dt = LocalDate.parse(LocalDate.now().toString());
         Long totalItems = dayList.getTotalElements();
         int totalPages = dayList.getTotalPages();
-        List<Teacher> teachers = teacherService.getAllTeacher();
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
         Page<Event> events = eventService.getAllEvent(currentPage);
         model.addAttribute("events",events);
         model.addAttribute("teachers",teachers);
@@ -57,7 +58,7 @@ public class PlaceController {
 
     @GetMapping("/edit/calendar")
     public String getCalendarTable(Model model){
-        List<Teacher> teachers = teacherService.getAllTeacher();
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
         List<Event> allEventList = eventService.findAllEventList();
 
         model.addAttribute("teachers",teachers);

@@ -13,19 +13,16 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Teacher {
+public class Gruppa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    @OneToMany(mappedBy = "teacher",cascade = CascadeType.REMOVE)
-    private Set<Gruppa> gruppa;
 
-    public TeacherModel toModel(){
-        return TeacherModel.builder()
-                .id(id)
-                .name(name)
-                .gruppa(gruppa)
-                .build();
-    }
+    private String name;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id",nullable = false)
+    private Teacher teacher;
+
+    @OneToMany(mappedBy = "gruppa",cascade = CascadeType.REMOVE)
+    private Set<Exam> exams;
 }

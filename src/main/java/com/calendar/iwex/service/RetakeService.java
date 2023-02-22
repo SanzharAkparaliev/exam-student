@@ -106,30 +106,30 @@ public class RetakeService {
         return retakeRepository.findById(id);
     }
 
-    public void updateRetake(Retake newRetake) {
-        Retake retake = retakeRepository.findById(newRetake.getId()).get();
-        retake.setComment(newRetake.getComment());
-        retake.setResult(newRetake.getResult());
-        retake.setWriting(newRetake.getWriting());
-        retake.setTotal(newRetake.getTotal());
-        retake.setTime(newRetake.getTime());
-        retake.setDate(newRetake.getDate());
-        retake.setSpeaking(newRetake.getSpeaking());
-        retake.setLevel(newRetake.getLevel());
-        retake.setTotal(newRetake.getSpeaking() + newRetake.getWriting());
-
-        if(!newRetake.getResult().equals("сдал(а)")){
-            try {
-                examService.updateExamRetake(retake);
-                retakeRepository.deleteById(retake.getId());
-            }catch (Exception e){
-
-            }
-
-        }else {
-            retakeRepository.save(retake);
-        }
-    }
+//    public void updateRetake(Retake newRetake) {
+//        Retake retake = retakeRepository.findById(newRetake.getId()).get();
+//        retake.setComment(newRetake.getComment());
+//        retake.setResult(newRetake.getResult());
+//        retake.setWriting(newRetake.getWriting());
+//        retake.setTotal(newRetake.getTotal());
+//        retake.setTime(newRetake.getTime());
+//        retake.setDate(newRetake.getDate());
+//        retake.setSpeaking(newRetake.getSpeaking());
+//        retake.setLevel(newRetake.getLevel());
+//        retake.setTotal(newRetake.getSpeaking() + newRetake.getWriting());
+//
+//        if(!newRetake.getResult().equals("сдал(а)")){
+//            try {
+//                examService.updateExamRetake(retake);
+//                retakeRepository.deleteById(retake.getId());
+//            }catch (Exception e){
+//
+//            }
+//
+//        }else {
+//            retakeRepository.save(retake);
+//        }
+//    }
 
     public List<Retake> searchRetakeResultByStudentName(String studentName){
         return retakeRepository.findByKeyWord(studentName);

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ExamRepository extends JpaRepository<Exam,Long> {
-    public List<Exam> findByTeacher(Teacher teacher);
-    public void deleteByTeacherAndAndId(Teacher teacher,Long id);
-    public Exam findByAnn(String ann);
+//    public List<Exam> findByGroup(Teacher teacher);
+//
+//    public Exam findByAnn(String ann);
 }

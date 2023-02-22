@@ -20,7 +20,6 @@ public class Exam {
     private String time;
     private String date;
     private String studentName;
-
     private Integer speaking;
     private Integer writing;
     private String level;
@@ -30,9 +29,9 @@ public class Exam {
     private String CourseDates;
     private String ann;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id",nullable = false)
-    private Teacher teacher;
 
+    @ManyToOne
+    @JoinColumn(name = "gruppa_id",nullable = false)
+    private Gruppa gruppa;
 
 }

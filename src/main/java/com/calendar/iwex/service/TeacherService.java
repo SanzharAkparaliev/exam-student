@@ -1,12 +1,14 @@
 package com.calendar.iwex.service;
 
 import com.calendar.iwex.entity.Teacher;
+import com.calendar.iwex.entity.TeacherModel;
 import com.calendar.iwex.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherService {
@@ -20,11 +22,11 @@ public class TeacherService {
         teacher.setName(teacherName);
         Teacher teacherInDb = teacherRepository.save(teacher);
 
-        examService.createExamTable(teacherInDb);
     }
 
-    public List<Teacher> getAllTeacher(){
-        return teacherRepository.findAll();
+    public List<TeacherModel> getAllTeacher(){
+        return teacherRepository.findAll().stream()
+                .map(Teacher::toModel).collect(Collectors.toList());
     }
 
     public Optional<Teacher> getTeacher(Long id){
