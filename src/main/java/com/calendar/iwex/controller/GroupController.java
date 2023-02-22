@@ -36,6 +36,7 @@ public class GroupController {
         List<Gruppa> allGruppa = gruppaService.getAllGruppa();
         model.addAttribute("teachers",teachers);
         model.addAttribute("allGruppa",allGruppa);
+
         return "group";
     }
 
@@ -56,10 +57,14 @@ public class GroupController {
     public String getExamByGruppa(@PathVariable("id") Long id,Model model){
         Optional<Gruppa> gruppaById = gruppaService.getGruppaById(id);
         List<Exam> examByGroup = examService.getExamByGroup(gruppaById.get());
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
 
         model.addAttribute("title",gruppaById.get().getName());
         model.addAttribute("examResults",examByGroup);
         model.addAttribute("groupId",gruppaById.get().getId());
+        model.addAttribute("teachers",teachers);
+        model.addAttribute("allGruppa",allGruppa);
 
         return "exam";
 

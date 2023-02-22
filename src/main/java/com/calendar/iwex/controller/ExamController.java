@@ -3,6 +3,7 @@ package com.calendar.iwex.controller;
 import com.calendar.iwex.entity.*;
 import com.calendar.iwex.helper.Message;
 import com.calendar.iwex.service.ExamService;
+import com.calendar.iwex.service.GruppaService;
 import com.calendar.iwex.service.RetakeService;
 import com.calendar.iwex.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class ExamController {
     private TeacherService teacherService;
     @Autowired
     private RetakeService retakeService;
+    @Autowired
+    private GruppaService gruppaService;
 //
 //
 //    @GetMapping("/teacher/{id}")
@@ -57,18 +60,16 @@ public class ExamController {
 //        return "redirect:/teacher/" + id;
 //    }
 
-//
-//
-//    @GetMapping("/exam/result/delete/{id}/teacher/{tId}")
-//    public String deleteExamResult(@PathVariable("id") Long studentId,
-//                                   @PathVariable("tId")Long teacherId,Model model){
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//        model.addAttribute("teachers",teachers);
-//        Optional<Teacher> teacher = teacherService.getTeacher(teacherId);
-//        examService.deleteExam(teacher.get(),studentId);
-//        return "redirect:/teacher/" + teacherId;
-//    }
-//
+
+
+    @GetMapping("/exam/result/delete/{id}/group/{gId}")
+    public String deleteExamResult(@PathVariable("id") Long studentId,
+                                   @PathVariable("gId")Long groupId,Model model){
+        Optional<Gruppa> gruppaById = gruppaService.getGruppaById(groupId);
+        examService.deleteExam(gruppaById.get(),studentId);
+        return "redirect:/group/get/" + groupId;
+    }
+
 //    @GetMapping("/exam/result/edit/{eid}/teacher/{id}")
 //    public String updateCategory(@PathVariable("eid") Long examId,@PathVariable("id") Long teacherId,Model model){
 //        Optional<Exam> exam = examService.getExam(examId);

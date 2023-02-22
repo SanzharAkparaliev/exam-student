@@ -72,7 +72,7 @@
                                             Edit
                                         </a>
                                         <input type="hidden" id="id" th:value="${result.id}">
-                                        <a  class="dropdown-item delBtn" href="#" th:href="@{/exam/result/delete/{id}/teacher/{tId}(id=${result.id},tId=${result.getGruppa().getId()})}">
+                                        <a  class="dropdown-item delBtn" href="#" th:href="@{/exam/result/delete/{id}/group/{gId}(id=${result.id},gId=${result.getGruppa().getId()})}">
                                             <i class="dw dw-delete-3"></i> Delete
                                         </a>
                                     </div>

@@ -38,8 +38,8 @@ public class ExamService {
         return examRepository.findByGruppa(gruppa);
     }
 
-    public void deleteExam(Teacher teacher, Long examId){
-//        examRepository.deleteByTeacherAndAndId(teacher,examId);
+    public void deleteExam(Gruppa gruppa, Long examId){
+        examRepository.deleteByGruppaAndId(gruppa,examId);
     }
 
     public void saveExam(Exam exam,Long groupId){

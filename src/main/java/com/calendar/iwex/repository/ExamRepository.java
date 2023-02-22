@@ -16,4 +16,5 @@ public interface ExamRepository extends JpaRepository<Exam,Long> {
 //    public Exam findByAnn(String ann);
 
     public List<Exam> findByGruppa(Gruppa gruppa);
+    public  void deleteByGruppaAndId(Gruppa gruppa,Long id);
 }
