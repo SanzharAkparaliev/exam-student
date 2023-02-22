@@ -1,9 +1,6 @@
 package com.calendar.iwex.service;
 
-import com.calendar.iwex.entity.Exam;
-import com.calendar.iwex.entity.Gruppa;
-import com.calendar.iwex.entity.Manager;
-import com.calendar.iwex.entity.Teacher;
+import com.calendar.iwex.entity.*;
 import com.calendar.iwex.repository.ExamRepository;
 import com.calendar.iwex.repository.GruppaRepository;
 import com.calendar.iwex.repository.ManagerRepository;
@@ -59,39 +56,39 @@ public class ExamService {
         examRepository.save(exam);
     }
 
-//    public Optional<Exam> getExam(Long examId){
-//       return   examRepository.findById(examId);
-//    }
-//
-//    public void updateExam(Exam exam) {
-//        Exam newExam = examRepository.findById(exam.getId()).get();
-//        newExam.setDate(exam.getDate());
-//        newExam.setComment(exam.getComment());
-//        newExam.setLevel(exam.getLevel());
-//        newExam.setResult(exam.getResult());
-//        newExam.setCourseDates(exam.getCourseDates());
-//        newExam.setSpeaking(exam.getSpeaking());
-//        newExam.setWriting(exam.getWriting());
-//        newExam.setTime(exam.getTime());
-//        newExam.setAnn(exam.getAnn());
-//        newExam.setTotal(exam.getSpeaking() + exam.getWriting());
-//        if(exam.getResult().equals("не сдал(а)")){
-//            Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getAnn());
-//            if(byRetakeByAnn == null){
-//                retakeService.createRateke(newExam);
-//            }else {
-//                byRetakeByAnn.setSpeaking(exam.getSpeaking());
-//                byRetakeByAnn.setWriting(exam.getWriting());
-//                byRetakeByAnn.setTotal(exam.getTotal());
-//                retakeService.createRatekeByRetake(byRetakeByAnn);
-//            }
-//        }
-//        examRepository.save(newExam);
-//    }
-//    public List<Manager> getAllStudent(){
-//        return managerRepository.findAll();
-//    }
-//
+    public Optional<Exam> getExam(Long examId){
+       return   examRepository.findById(examId);
+    }
+
+    public void updateExam(Exam exam) {
+        Exam newExam = examRepository.findById(exam.getId()).get();
+        newExam.setDate(exam.getDate());
+        newExam.setComment(exam.getComment());
+        newExam.setLevel(exam.getLevel());
+        newExam.setResult(exam.getResult());
+        newExam.setCourseDates(exam.getCourseDates());
+        newExam.setSpeaking(exam.getSpeaking());
+        newExam.setWriting(exam.getWriting());
+        newExam.setTime(exam.getTime());
+        newExam.setAnn(exam.getAnn());
+        newExam.setTotal(exam.getSpeaking() + exam.getWriting());
+        if(exam.getResult().equals("не сдал(а)")){
+            Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getAnn());
+            if(byRetakeByAnn == null){
+                retakeService.createRateke(newExam);
+            }else {
+                byRetakeByAnn.setSpeaking(exam.getSpeaking());
+                byRetakeByAnn.setWriting(exam.getWriting());
+                byRetakeByAnn.setTotal(exam.getTotal());
+                retakeService.createRatekeByRetake(byRetakeByAnn);
+            }
+        }
+        examRepository.save(newExam);
+    }
+    public List<Manager> getAllStudent(){
+        return managerRepository.findAll();
+    }
+
 //    public void updateExamRetake(Retake retake){
 //        Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
 //        exambyAnn.setResult(retake.getResult());

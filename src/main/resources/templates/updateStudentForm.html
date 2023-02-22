@@ -16,7 +16,7 @@
             <div class="card-box mb-30">
                 <div class="pd-20">
                     <form method="post" th:action="@{/update}" action="#"  th:if="${student != null}" th:object="${student}" >
-                        <input type="hidden" th:value="${teacherId}" name="teacherId">
+                        <input type="hidden" th:value="${groupId}" name="groupId">
                         <input type="hidden" th:value="${student.getId()}" name="id">
                         <input type="text" class="form-control" th:value="${student.getStudentName()}" placeholder="ФИО" name="studentName"  >
                         <label></label>

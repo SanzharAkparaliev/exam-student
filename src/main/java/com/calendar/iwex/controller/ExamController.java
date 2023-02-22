@@ -49,16 +49,16 @@ public class ExamController {
                                       @RequestParam("ann") String ann
                                       ){
         examService.saveExam(exam,id);
-        return "redirect:/group/get" + id;
+        return "redirect:/group/get/" + id;
     }
-//    @PostMapping("/update")
-//    public String updateStudentExamInfo(@RequestParam("teacherId") Long id,
-//                                      @ModelAttribute("exam") Exam exam,
-//                                      @RequestParam("ann") String ann
-//    ){
-//        examService.updateExam(exam);
-//        return "redirect:/teacher/" + id;
-//    }
+    @PostMapping("/update")
+    public String updateStudentExamInfo(@RequestParam("groupId") Long id,
+                                      @ModelAttribute("exam") Exam exam,
+                                      @RequestParam("ann") String ann
+    ){
+        examService.updateExam(exam);
+        return "redirect:/group/get/" + id;
+    }
 
 
 
@@ -70,23 +70,27 @@ public class ExamController {
         return "redirect:/group/get/" + groupId;
     }
 
-//    @GetMapping("/exam/result/edit/{eid}/teacher/{id}")
-//    public String updateCategory(@PathVariable("eid") Long examId,@PathVariable("id") Long teacherId,Model model){
-//        Optional<Exam> exam = examService.getExam(examId);
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//        model.addAttribute("teachers",teachers);
-//        if(exam.isPresent()){
-//            model.addAttribute("student",exam.get());
-//            model.addAttribute("teacherId",teacherId);
-//            return "updateStudentForm";
-//        }else {
-//            return "404";
-//        }
-//    }
-//
-//
-//
-//
+    @GetMapping("/exam/result/edit/{id}/gruppa/{gId}")
+    public String updateCategory(@PathVariable("id") Long examId,@PathVariable("gId") Long gruppaId,Model model){
+        Optional<Exam> exam = examService.getExam(examId);
+
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+        model.addAttribute("teachers",teachers);
+        if(exam.isPresent()){
+            model.addAttribute("student",exam.get());
+            model.addAttribute("groupId",gruppaId);
+
+            List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+            model.addAttribute("allGruppa",allGruppa);
+            return "updateStudentForm";
+        }else {
+            return "404";
+        }
+    }
+
+
+
+
     @GetMapping("/teacher/group/{id}")
     public String getStudentFormPage(Model model, HttpSession session, @PathVariable("id") Long groupId){
         List<TeacherModel> teachers = teacherService.getAllTeacher();
@@ -97,6 +101,9 @@ public class ExamController {
         model.addAttribute("examResults",allRetake);
         model.addAttribute("groupId",groupId);
         model.addAttribute("student",session.getAttribute("student"));
+
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        model.addAttribute("allGruppa",allGruppa);
         return "studentForm";
     }
 //
