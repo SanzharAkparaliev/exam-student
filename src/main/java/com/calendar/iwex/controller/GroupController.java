@@ -90,4 +90,26 @@ public class GroupController {
         gruppaService.deleteGroup(groupId);
         return "redirect:/teacher/groups/" + teacherId;
     }
+
+    @GetMapping("/gruppa/edit/{id}/teacher/{tId}")
+    public String getEditGroupPage(Model model,@PathVariable("id")Long groupId,@PathVariable("tId") Long teacherId){
+        Optional<Gruppa> gruppaById = gruppaService.getGruppaById(groupId);
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        Optional<Teacher> teacher = teacherService.getTeacher(teacherId);
+        model.addAttribute("teachers",teachers);
+        model.addAttribute("title",gruppaById.get().getName());
+        model.addAttribute("allGruppa",allGruppa);
+        model.addAttribute("group",gruppaById);
+
+        return "editGroup";
+    }
+
+    @PostMapping("/updateGroup")
+    public String  updateGroup(@RequestParam("teacher_id") Long teacherId,
+                               @RequestParam("group_id")Long groupId,
+                               @RequestParam("gruppa") String groupName){
+        gruppaService.updateGroup(groupId,groupName);
+        return "redirect:/teacher/groups/"+ teacherId;
+    }
 }

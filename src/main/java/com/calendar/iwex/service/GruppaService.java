@@ -32,4 +32,10 @@ public class GruppaService {
     public void deleteGroup(Long id){
         gruppaRepository.deleteById(id);
     }
+
+    public void updateGroup(Long groupId, String groupName) {
+        Optional<Gruppa> byId = gruppaRepository.findById(groupId);
+        byId.get().setName(groupName);
+        gruppaRepository.save(byId.get());
+    }
 }
