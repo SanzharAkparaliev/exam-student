@@ -118,7 +118,7 @@ public class RetakeService {
         retake.setLevel(newRetake.getLevel());
         retake.setTotal(newRetake.getSpeaking() + newRetake.getWriting());
 
-        if(!newRetake.getResult().equals("сдал(а)")){
+        if(!newRetake.getResult().equals("не сдал(а)")){
             try {
                 examService.updateExamRetake(retake);
                 retakeRepository.deleteById(retake.getId());
@@ -127,6 +127,7 @@ public class RetakeService {
             }
 
         }else {
+            examService.updateExamRetake(retake);
             retakeRepository.save(retake);
         }
     }

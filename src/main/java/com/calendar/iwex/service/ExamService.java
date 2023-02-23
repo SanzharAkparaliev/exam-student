@@ -95,6 +95,9 @@ public class ExamService {
         exambyAnn.setTotal(retake.getTotal());
         exambyAnn.setSpeaking(retake.getSpeaking());
         exambyAnn.setWriting(retake.getWriting());
+        exambyAnn.setDate(retake.getDate());
+        exambyAnn.setLevel(retake.getLevel());
+        exambyAnn.setComment(retake.getComment());
         examRepository.save(exambyAnn);
     }
 }
