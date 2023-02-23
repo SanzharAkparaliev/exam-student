@@ -1,5 +1,6 @@
 package com.calendar.iwex.controller;
 
+import com.calendar.iwex.entity.Gruppa;
 import com.calendar.iwex.entity.Teacher;
 import com.calendar.iwex.entity.TeacherModel;
 import com.calendar.iwex.service.GruppaService;
@@ -46,6 +47,9 @@ public class TeacherController {
         model.addAttribute("title","Teachers");
         model.addAttribute("teachers",allTeacher);
 
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        model.addAttribute("allGruppa",allGruppa);
+
         return "teachers";
     }
 
@@ -56,6 +60,9 @@ public class TeacherController {
         model.addAttribute("title","Teachers");
         model.addAttribute("teachers",allTeacher);
         model.addAttribute("teacher",teacher);
+
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        model.addAttribute("allGruppa",allGruppa);
 
         return "teacherEdit";
     }

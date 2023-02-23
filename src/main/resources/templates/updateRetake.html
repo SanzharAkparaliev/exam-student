@@ -20,7 +20,7 @@
                         <label></label>
                         <input type="text" class="form-control" th:value="${student.getAnn()}" placeholder="ANN" name="ann"  >
                         <label></label>
-                        <input class="form-control" type="text" th:value="${student.getId()}" name="id">
+                        <input class="form-control" type="hidden" th:value="${student.getId()}" name="id">
                         <label></label>
                         <div class="form-group">
                             <input type="date" name="date" id="date" th:value="${student.getDate()}" class="form-control"  placeholder="Выберите дату" required>

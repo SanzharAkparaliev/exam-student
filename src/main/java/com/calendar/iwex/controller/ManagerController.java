@@ -49,11 +49,17 @@ public class ManagerController {
             model.addAttribute("teachers",teachers);
             model.addAttribute("title","менеджер");
             model.addAttribute("examResults",managers);
+
+            List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+            model.addAttribute("allGruppa",allGruppa);
         }else {
             List<Manager> managers = examService.getAllStudent();
             model.addAttribute("teachers",teachers);
             model.addAttribute("title","менеджер");
             model.addAttribute("examResults",managers);
+
+            List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+            model.addAttribute("allGruppa",allGruppa);
         }
 
         return "manager";
@@ -69,11 +75,17 @@ public class ManagerController {
             model.addAttribute("teachers",teachers);
             model.addAttribute("title","менеджер");
             model.addAttribute("examResults",managerList);
+
+            List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+            model.addAttribute("allGruppa",allGruppa);
         }else {
             List<Manager> managers = examService.getAllStudent();
             model.addAttribute("teachers",teachers);
             model.addAttribute("title","менеджер");
             model.addAttribute("examResults",managers);
+
+            List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+            model.addAttribute("allGruppa",allGruppa);
         }
 
         return "manager";

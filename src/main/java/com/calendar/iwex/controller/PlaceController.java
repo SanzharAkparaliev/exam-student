@@ -1,11 +1,9 @@
 package com.calendar.iwex.controller;
 
-import com.calendar.iwex.entity.Day;
-import com.calendar.iwex.entity.Event;
-import com.calendar.iwex.entity.Teacher;
-import com.calendar.iwex.entity.TeacherModel;
+import com.calendar.iwex.entity.*;
 import com.calendar.iwex.service.DayService;
 import com.calendar.iwex.service.EventService;
+import com.calendar.iwex.service.GruppaService;
 import com.calendar.iwex.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +25,8 @@ public class PlaceController {
     private EventService eventService;
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private GruppaService gruppaService;
 
 
     @GetMapping("/calendar")
@@ -50,6 +50,9 @@ public class PlaceController {
         model.addAttribute("month",dt.getMonth());
         model.addAttribute("totalItems",totalItems);
         model.addAttribute("totalPages",totalPages);
+
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        model.addAttribute("allGruppa",allGruppa);
         model.addAttribute("currentPage",currentPage);
         model.addAttribute("days",dayList);
         model.addAttribute("title","Расписание");
@@ -64,6 +67,9 @@ public class PlaceController {
         model.addAttribute("teachers",teachers);
         model.addAttribute("title","Iwex");
         model.addAttribute("allEvent",allEventList);
+
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        model.addAttribute("allGruppa",allGruppa);
         return "calendarTable";
     }
 

@@ -80,6 +80,11 @@ public class ExamService {
                 byRetakeByAnn.setSpeaking(exam.getSpeaking());
                 byRetakeByAnn.setWriting(exam.getWriting());
                 byRetakeByAnn.setTotal(exam.getTotal());
+                byRetakeByAnn.setAnn(exam.getAnn());
+                byRetakeByAnn.setComment(exam.getComment());
+                byRetakeByAnn.setLevel(exam.getLevel());
+                byRetakeByAnn.setDate(exam.getDate());
+                byRetakeByAnn.setTotal(exam.getSpeaking() + exam.getWriting());
                 retakeService.createRatekeByRetake(byRetakeByAnn);
             }
         }
@@ -98,6 +103,8 @@ public class ExamService {
         exambyAnn.setDate(retake.getDate());
         exambyAnn.setLevel(retake.getLevel());
         exambyAnn.setComment(retake.getComment());
+        exambyAnn.setAnn(retake.getAnn());
+        exambyAnn.setStudentName(retake.getStudentName());
         examRepository.save(exambyAnn);
     }
 }

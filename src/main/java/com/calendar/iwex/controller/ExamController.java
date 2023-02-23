@@ -156,48 +156,48 @@ public class ExamController {
         return "redirect:/retake";
     }
 
-//    @PostMapping("/searchretake")
-//    public String searchRetake(@RequestParam("studentName") String studentName,Model model){
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//
-//        if(studentName!=null){
-//            List<Retake> list = retakeService.searchRetakeResultByStudentName(studentName);
-//            model.addAttribute("teachers",teachers);
-//            model.addAttribute("title","Пересдача");
-//            model.addAttribute("exam",new Exam());
-//            model.addAttribute("examResults",list);
-//            model.addAttribute("studentName",studentName);
-//        }else {
-//            List<Retake> allRetake = retakeService.getAllRetake();
-//            model.addAttribute("teachers",teachers);
-//            model.addAttribute("title","Пересдача");
-//            model.addAttribute("exam",new Exam());
-//            model.addAttribute("examResults",allRetake);
-//        }
-//
-//        return "retake";
-//    }
-//
-//    @PostMapping("/searchlevelbyretake")
-//    public String searchRetakeByLevel(@RequestParam("level") String level,Model model){
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//
-//        if(level!=null){
-//            List<Retake> list = retakeService.searchRetakeResultByLevel(level);
-//
-//            model.addAttribute("teachers",teachers);
-//            model.addAttribute("title","Пересдача");
-//            model.addAttribute("exam",new Exam());
-//            model.addAttribute("examResults",list);
-//        }else {
-//            List<Retake> allRetake = retakeService.getAllRetake();
-//            model.addAttribute("teachers",teachers);
-//            model.addAttribute("title","Пересдача");
-//            model.addAttribute("exam",new Exam());
-//            model.addAttribute("examResults",allRetake);
-//        }
-//
-//        return "retake";
-//    }
+    @PostMapping("/searchretake")
+    public String searchRetake(@RequestParam("studentName") String studentName,Model model){
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+
+        if(studentName!=null){
+            List<Retake> list = retakeService.searchRetakeResultByStudentName(studentName);
+            model.addAttribute("teachers",teachers);
+            model.addAttribute("title","Пересдача");
+            model.addAttribute("exam",new Exam());
+            model.addAttribute("examResults",list);
+            model.addAttribute("studentName",studentName);
+        }else {
+            List<Retake> allRetake = retakeService.getAllRetake();
+            model.addAttribute("teachers",teachers);
+            model.addAttribute("title","Пересдача");
+            model.addAttribute("exam",new Exam());
+            model.addAttribute("examResults",allRetake);
+        }
+
+        return "retake";
+    }
+
+    @PostMapping("/searchlevelbyretake")
+    public String searchRetakeByLevel(@RequestParam("level") String level,Model model){
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+
+        if(level!=null){
+            List<Retake> list = retakeService.searchRetakeResultByLevel(level);
+
+            model.addAttribute("teachers",teachers);
+            model.addAttribute("title","Пересдача");
+            model.addAttribute("exam",new Exam());
+            model.addAttribute("examResults",list);
+        }else {
+            List<Retake> allRetake = retakeService.getAllRetake();
+            model.addAttribute("teachers",teachers);
+            model.addAttribute("title","Пересдача");
+            model.addAttribute("exam",new Exam());
+            model.addAttribute("examResults",allRetake);
+        }
+
+        return "retake";
+    }
 
 }
