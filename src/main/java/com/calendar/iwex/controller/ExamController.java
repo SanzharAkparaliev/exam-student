@@ -79,6 +79,7 @@ public class ExamController {
         if(exam.isPresent()){
             model.addAttribute("student",exam.get());
             model.addAttribute("groupId",gruppaId);
+            model.addAttribute("title",exam.get().getStudentName());
 
             List<Gruppa> allGruppa = gruppaService.getAllGruppa();
             model.addAttribute("allGruppa",allGruppa);
@@ -106,47 +107,55 @@ public class ExamController {
         model.addAttribute("allGruppa",allGruppa);
         return "studentForm";
     }
-//
-//    @GetMapping("/retake")
-//    public String getRetakePage(Model model){
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//        List<Retake> allRetake = retakeService.getAllRetake();
-//        model.addAttribute("teachers",teachers);
-//        model.addAttribute("title","Пересдача");
-//        model.addAttribute("exam",new Exam());
-//        model.addAttribute("examResults",allRetake);
-//
-//        return "retake";
-//    }
-//
-//    @GetMapping("/retake/edit/{id}")
-//    public String updateRetake(@PathVariable("id") Long retakeId,Model model){
-//        Optional<Retake> retake = retakeService.getRetake(retakeId);
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//        model.addAttribute("teachers",teachers);
-//        if(retake.isPresent()){
-//            model.addAttribute("student",retake.get());
-//            return "updateRetake";
-//        }else {
-//            return "404";
-//        }
-//    }
-//
-//    @GetMapping("/retake/student/delete/{id}")
-//    public String deleteRetakeStudent(@PathVariable("id") Long studentId,Model model){
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//        model.addAttribute("teachers",teachers);
-//        retakeService.deleteRetaeke(studentId);
-//        return "redirect:/retake";
-//    }
-//
-//    @PostMapping("/updateRetake")
-//    public String updateStudentExamInfo(@ModelAttribute("retake") Retake retake
-//    ){
-//        retakeService.updateRetake(retake);
-//        return "redirect:/retake";
-//    }
-//
+
+    @GetMapping("/retake")
+    public String getRetakePage(Model model){
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+        List<Retake> allRetake = retakeService.getAllRetake();
+        model.addAttribute("teachers",teachers);
+        model.addAttribute("title","Пересдача");
+        model.addAttribute("exam",new Exam());
+        model.addAttribute("examResults",allRetake);
+
+
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        model.addAttribute("allGruppa",allGruppa);
+
+        return "retake";
+    }
+
+    @GetMapping("/retake/edit/{id}")
+    public String updateRetake(@PathVariable("id") Long retakeId,Model model){
+        Optional<Retake> retake = retakeService.getRetake(retakeId);
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+        model.addAttribute("teachers",teachers);
+        if(retake.isPresent()){
+            model.addAttribute("student",retake.get());
+
+            List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+            model.addAttribute("allGruppa",allGruppa);
+
+            return "updateRetake";
+        }else {
+            return "404";
+        }
+    }
+
+    @GetMapping("/retake/student/delete/{id}")
+    public String deleteRetakeStudent(@PathVariable("id") Long studentId,Model model){
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+        model.addAttribute("teachers",teachers);
+        retakeService.deleteRetaeke(studentId);
+        return "redirect:/retake";
+    }
+
+    @PostMapping("/updateRetake")
+    public String updateStudentExamInfo(@ModelAttribute("retake") Retake retake
+    ){
+        retakeService.updateRetake(retake);
+        return "redirect:/retake";
+    }
+
 //    @PostMapping("/searchretake")
 //    public String searchRetake(@RequestParam("studentName") String studentName,Model model){
 //        List<Teacher> teachers = teacherService.getAllTeacher();

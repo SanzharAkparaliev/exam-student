@@ -30,7 +30,9 @@
 
                         <tr th:each="teacher,iStat: ${teachers}"  >
                             <th scope="row" th:text="${iStat.index + 1}">1</th>
-                            <td class="table-plus" th:text="${teacher.getName()}"></td>
+                            <td class="table-plus" >
+                                <a  href="" th:href="@{/teacher/groups/{id}(id=${teacher.id})}" th:text="${teacher.getName()}"></a>
+                            </td>
                             <td>
                                 <div class="dropdown">
                                     <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" type="btn" role="button" data-toggle="dropdown">

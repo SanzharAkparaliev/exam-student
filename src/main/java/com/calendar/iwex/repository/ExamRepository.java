@@ -13,7 +13,7 @@ import java.util.List;
 public interface ExamRepository extends JpaRepository<Exam,Long> {
 //    public List<Exam> findByGroup(Teacher teacher);
 //
-//    public Exam findByAnn(String ann);
+    public Exam findByAnn(String ann);
 
     public List<Exam> findByGruppa(Gruppa gruppa);
     public  void deleteByGruppaAndId(Gruppa gruppa,Long id);

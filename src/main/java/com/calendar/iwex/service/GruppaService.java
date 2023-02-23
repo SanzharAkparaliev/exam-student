@@ -18,7 +18,7 @@ public class GruppaService {
     }
 
     public List<Gruppa> getGruppaByTeacher(Teacher teacher){
-        return gruppaRepository.findByTeacher(teacher.getName());
+        return gruppaRepository.findByTeacher(teacher);
     }
 
     public List<Gruppa> getAllGruppa(){
@@ -27,5 +27,9 @@ public class GruppaService {
 
     public Optional<Gruppa> getGruppaById(Long id){
         return gruppaRepository.findById(id);
+    }
+
+    public void deleteGroup(Long id){
+        gruppaRepository.deleteById(id);
     }
 }

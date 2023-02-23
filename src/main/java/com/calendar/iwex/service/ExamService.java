@@ -89,16 +89,15 @@ public class ExamService {
         return managerRepository.findAll();
     }
 
-//    public void updateExamRetake(Retake retake){
-//        Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
-//        exambyAnn.setResult(retake.getResult());
-//        exambyAnn.setTotal(retake.getTotal());
-//        exambyAnn.setSpeaking(retake.getSpeaking());
-//        exambyAnn.setWriting(retake.getWriting());
-//        examRepository.save(exambyAnn);
-//    }
+    public void updateExamRetake(Retake retake){
+        Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
+        exambyAnn.setResult(retake.getResult());
+        exambyAnn.setTotal(retake.getTotal());
+        exambyAnn.setSpeaking(retake.getSpeaking());
+        exambyAnn.setWriting(retake.getWriting());
+        examRepository.save(exambyAnn);
+    }
 }
-
 
 
 

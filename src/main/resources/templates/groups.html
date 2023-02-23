@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:insert="fragments.html :: head"></head>
+<body>
+<div class="header" >
+  <div class="header-left">
+    <div class="menu-icon bi bi-list"></div>
+  </div>
+</div>
+<div th:insert="fragments.html :: side-bar"></div>
+<div class="mobile-menu-overlay"></div>
+<div class="main-container">
+  <div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+      <!-- Simple Datatable start -->
+      <div class="card-box mb-30">
+
+        <div class="pb-20">
+          <table class="data-table table stripe hover nowrap">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th class="table-plus datatable-nosort">Группа</th>
+
+              <th class="datatable-nosort">Действие</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr th:each="gruppa,iStat: ${gruppaByTeacher}"  >
+              <th scope="row" th:text="${iStat.index + 1}">1</th>
+              <td class="table-plus" th:text="${gruppa.getName()}">
+              </td>
+              <td>
+                <div class="dropdown">
+                  <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" type="btn" role="button" data-toggle="dropdown">
+                    <i class="dw dw-more"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <a class="dropdown-item " th:href="@{/gruppa/edit/{id}(id=${gruppa.id})}" >
+                      <i class="dw dw-edit2"></i>
+                      Edit
+                    </a>
+                    <a  class="dropdown-item delBtn" href="#"
+                        th:href="@{/gruppa/delete/{id}/teacher/{tId}(id=${gruppa.id},tId=${gruppa.getTeacher().getId()})}">
+                      <i class="dw dw-delete-3"></i> Delete
+                    </a>
+
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<div th:insert="fragments.html :: footer"></div>
+
+
+<script type="text/javascript" th:src="@{/src/scripts/main.js}"></script>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

@@ -8,6 +8,7 @@ import com.calendar.iwex.service.ExamService;
 import com.calendar.iwex.service.GruppaService;
 import com.calendar.iwex.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,5 +69,25 @@ public class GroupController {
 
         return "exam";
 
+    }
+
+    @GetMapping("teacher/groups/{tId}")
+    public String getGropsPage(Model model,@PathVariable("tId") Long teacherId){
+        List<TeacherModel> teachers = teacherService.getAllTeacher();
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        Optional<Teacher> teacher = teacherService.getTeacher(teacherId);
+        List<Gruppa> gruppaByTeacher = gruppaService.getGruppaByTeacher(teacher.get());
+        model.addAttribute("gruppaByTeacher",gruppaByTeacher);
+        model.addAttribute("teachers",teachers);
+        model.addAttribute("title",teacher.get().getName() );
+        model.addAttribute("allGruppa",allGruppa);
+
+        return "groups";
+    }
+
+    @GetMapping("/gruppa/delete/{id}/teacher/{tId}")
+    public String deleteGroup(@PathVariable("id")Long groupId,@PathVariable("tId") Long teacherId){
+        gruppaService.deleteGroup(groupId);
+        return "redirect:/teacher/groups/" + teacherId;
     }
 }
