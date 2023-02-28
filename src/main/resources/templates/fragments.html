@@ -53,19 +53,19 @@
                         <span class="mtext">Экзамен</span>
                     </a>
                     <ul class="submenu">
-                        <li th:each="teacher: ${teachers}" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle ">
+                        <li th:each="teacher: ${teachers}" >
+                            <a href="javascript:;" class="dropdown-toggle " >
                                 <span class="mtext" th:text="${teacher.getName()}">Teacher</span>
                             </a>
-                            <ul>
-                                <li class="dropdown" th:each="gruppa: ${allGruppa}" th:if="${gruppa.getTeacher().getName() == teacher.getName()}">
-                                    <a href="#" th:href="@{/group/get/{id}(id=${gruppa.id})}" class="dropdown-toggle no-arrow">
+                            <ul style="display: none">
+                                <li  class="dropdown " th:each="gruppa: ${allGruppa}" th:if="${gruppa.getTeacher().getName() == teacher.getName()}">
+                                    <a href="#" th:href="@{/group/get/{id}(id=${gruppa.id})}" >
                                         <span class="mtext" th:text="${gruppa.getName()}">AA</span>
                                     </a>
                                 </li>
 
                                 <li class="dropdown ">
-                                    <a  class="dropdown-item" href="#" th:href="@{/group/{id}(id=${teacher.id})}">
+                                    <a   href="#" th:href="@{/group/{id}(id=${teacher.id})}">
                                         <span class="mtext" style="font-size:10px;">Добавить группу</span>
                                     </a>
                                 </li>

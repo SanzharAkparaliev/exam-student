@@ -4,6 +4,8 @@ import com.calendar.iwex.entity.Teacher;
 import com.calendar.iwex.entity.TeacherModel;
 import com.calendar.iwex.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class TeacherService {
     }
 
     public List<TeacherModel> getAllTeacher(){
-        return teacherRepository.findAll().stream()
+        return teacherRepository.findAll(Sort.by(Sort.Direction.ASC,"name")).stream()
                 .map(Teacher::toModel).collect(Collectors.toList());
     }
 
