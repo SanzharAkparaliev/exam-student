@@ -72,8 +72,10 @@ public class ExamService {
         newExam.setTime(exam.getTime());
         newExam.setAnn(exam.getAnn());
         newExam.setTotal(exam.getSpeaking() + exam.getWriting());
+
+        Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getAnn());
+
         if(exam.getResult().equals("не сдал(а)")){
-            Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getAnn());
             if(byRetakeByAnn == null){
                 retakeService.createRateke(newExam);
             }else {
@@ -85,6 +87,8 @@ public class ExamService {
                 byRetakeByAnn.setLevel(exam.getLevel());
                 byRetakeByAnn.setDate(exam.getDate());
                 byRetakeByAnn.setTotal(exam.getSpeaking() + exam.getWriting());
+                byRetakeByAnn.setTime(exam.getTime());
+                byRetakeByAnn.setStudentName(exam.getStudentName());
                 retakeService.createRatekeByRetake(byRetakeByAnn);
             }
         }
@@ -104,6 +108,7 @@ public class ExamService {
         exambyAnn.setLevel(retake.getLevel());
         exambyAnn.setComment(retake.getComment());
         exambyAnn.setAnn(retake.getAnn());
+        exambyAnn.setTime(retake.getTime());
         exambyAnn.setStudentName(retake.getStudentName());
         examRepository.save(exambyAnn);
     }

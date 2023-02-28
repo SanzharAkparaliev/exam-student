@@ -117,6 +117,7 @@ public class RetakeService {
         retake.setSpeaking(newRetake.getSpeaking());
         retake.setLevel(newRetake.getLevel());
         retake.setTotal(newRetake.getSpeaking() + newRetake.getWriting());
+        retake.setStudentName(newRetake.getStudentName());
 
         if(!newRetake.getResult().equals("не сдал(а)")){
             try {
