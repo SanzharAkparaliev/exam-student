@@ -118,9 +118,15 @@
                     </ul>
                 </li>
                 <li   class="dropdown">
-                    <a href="#" th:href="@{/login?logout}" class="dropdown-toggle no-arrow">
+                    <a sec:authorize="isAuthenticated()"  href="#" th:href="@{/login?logout}" class="dropdown-toggle no-arrow">
                         <span class="micon bi-box-arrow-left"></span>
                         <span class="mtext">logout</span>
+                    </a>
+                </li>
+                <li   class="dropdown">
+                    <a sec:authorize="isAnonymous()"  href="#" th:href="@{/login}" class="dropdown-toggle no-arrow">
+                        <span class="micon bi bi-arrow-right-square"></span>
+                        <span class="mtext">Login</span>
                     </a>
                 </li>
             </ul>

@@ -72,6 +72,7 @@ public class ExamService {
         newExam.setTime(exam.getTime());
         newExam.setAnn(exam.getAnn());
         newExam.setTotal(exam.getSpeaking() + exam.getWriting());
+        newExam.setStudentName(exam.getStudentName());
 
         Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getAnn());
 
