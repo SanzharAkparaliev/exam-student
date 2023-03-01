@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:fragment="head">
     <meta charset="utf-8" />
     <title th:text="${title}"></title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/vendors/styles/core.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/vendors/styles/icon-font.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/src/plugins/fullcalendar/fullcalendar.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/vendors/styles/style.css}" />
+    <link rel="stylesheet"  th:href="@{/vendors/styles/core.css}" />
+    <link rel="stylesheet"  th:href="@{/vendors/styles/icon-font.min.css}"/>
+    <link rel="stylesheet"  th:href="@{/src/plugins/fullcalendar/fullcalendar.css}"/>
+    <link  rel="stylesheet" th:href="@{/vendors/styles/style.css}" />
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"></script>
     <link rel="stylesheet" th:href="@{/src/styles/index.css}">
     <style>
         .fc-toolbar .fc-center .btn-group nav .page-item .active{
@@ -47,25 +44,25 @@
                     </a>
 
                 </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
+                <li  class="dropdown"  sec:authorize="isAuthenticated()" >
+                    <a  sec:authorize="isAuthenticated()"   href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-pencil"></span>
                         <span class="mtext">Экзамен</span>
                     </a>
-                    <ul class="submenu">
+                    <ul  sec:authorize="isAuthenticated()"  class="submenu">
                         <li th:each="teacher: ${teachers}" >
-                            <a href="javascript:;" class="dropdown-toggle " >
+                            <a  sec:authorize="isAuthenticated()" href="javascript:;" class="dropdown-toggle " >
                                 <span class="mtext" th:text="${teacher.getName()}">Teacher</span>
                             </a>
                             <ul style="display: none">
                                 <li  class="dropdown " th:each="gruppa: ${allGruppa}" th:if="${gruppa.getTeacher().getName() == teacher.getName()}">
-                                    <a href="#" th:href="@{/group/get/{id}(id=${gruppa.id})}" >
+                                    <a  sec:authorize="isAuthenticated()" href="#" th:href="@{/group/get/{id}(id=${gruppa.id})}" >
                                         <span class="mtext" th:text="${gruppa.getName()}">AA</span>
                                     </a>
                                 </li>
 
                                 <li class="dropdown ">
-                                    <a   href="#" th:href="@{/group/{id}(id=${teacher.id})}">
+                                    <a   sec:authorize="isAuthenticated()"  href="#" th:href="@{/group/{id}(id=${teacher.id})}">
                                         <span class="mtext" style="font-size:10px;">Добавить группу</span>
                                     </a>
                                 </li>
@@ -73,7 +70,7 @@
 
 
                         </li>
-                        <li class="text-center">
+                        <li  sec:authorize="isAuthenticated()"  class="text-center">
                             <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">
                                 <span class="mtext" style="font-size:15px; color: #FFFFFF">добавить учителя</span>
                             </button>
@@ -83,42 +80,48 @@
                     </ul>
                 </li>
 
-                <li class="dropdown">
-                    <a href="#" th:href="@{/retake}" class="dropdown-toggle no-arrow">
+                <li  sec:authorize="isAuthenticated()"  class="dropdown">
+                    <a  sec:authorize="isAuthenticated()" href="#" th:href="@{/retake}" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-clock-history"></span>
                         <span class="mtext">Пересдача</span>
                     </a>
 
                 </li>
-                <li class="dropdown">
+                <li   class="dropdown">
                     <a href="#" th:href="@{/manager}" class="dropdown-toggle no-arrow">
                         <span class="micon fi-torso-business"></span>
                         <span class="mtext">Менеджер</span>
                     </a>
                 </li>
-                <li class="dropdown">
+                <li  sec:authorize="isAuthenticated()" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-file-person"></span>
                         <span class="mtext">ADMIN</span>
                     </a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="#" th:href="@{/edit/calendar}" class="dropdown-toggle no-arrow">
+                    <ul  sec:authorize="isAuthenticated()"  class="submenu">
+                        <li  sec:authorize="isAuthenticated()" >
+                            <a  sec:authorize="isAuthenticated()"  href="#" th:href="@{/edit/calendar}" class="dropdown-toggle no-arrow">
                                 <span class="mtext">Расписание</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" th:href="@{/edit/teacher}" class="dropdown-toggle no-arrow">
+                        <li  sec:authorize="isAuthenticated()" >
+                            <a  sec:authorize="isAuthenticated()"  href="#" th:href="@{/edit/teacher}" class="dropdown-toggle no-arrow">
                                 <span class="mtext">Teachers</span>
                             </a>
                         </li>
-                        <li class="text-center">
+                        <li class="text-center"  sec:authorize="isAuthenticated()" >
                             <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">
                                 <span class="micon bi bi-plus-lg" style="font-size: 22px; color: #FFFFFF"></span>
                             </button>
                         </li>
 
                     </ul>
+                </li>
+                <li   class="dropdown">
+                    <a href="#" th:href="@{/login?logout}" class="dropdown-toggle no-arrow">
+                        <span class="micon bi-box-arrow-left"></span>
+                        <span class="mtext">logout</span>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -127,7 +130,7 @@
 <div class="mobile-menu-overlay"></div>
 
 
-<div th:fragment="footer">
+<div   th:fragment="footer">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -213,8 +216,9 @@
             </div>
         </div>
     </div>
-    <script th:src="@{/vendors/scripts/core.js}"></script>
-    <script th:src="@{/vendors/scripts/script.min.js}"></script>
+    <script th:src="@{/vendors/scripts/core.js}" rel="script"></script>
+    <script th:src="@{/vendors/scripts/script.min.js}" rel="script"></script>
+
 
     <script type="text/javascript" >
         $('document').ready(function (){

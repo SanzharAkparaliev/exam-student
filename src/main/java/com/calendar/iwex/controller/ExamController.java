@@ -116,9 +116,7 @@ public class ExamController {
         model.addAttribute("title","Пересдача");
         model.addAttribute("exam",new Exam());
         model.addAttribute("examResults",allRetake);
-
-
-        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+            List<Gruppa> allGruppa = gruppaService.getAllGruppa();
         model.addAttribute("allGruppa",allGruppa);
 
         return "retake";

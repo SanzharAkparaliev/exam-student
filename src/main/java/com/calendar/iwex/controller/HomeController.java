@@ -45,6 +45,11 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String getLoginPaget(){
+        return "login";
+    }
+
     @PostMapping("/saveEvent")
     public String saveEvent(@RequestParam("teacherName") String teacherName,
                             @RequestParam("clock") String clock,
