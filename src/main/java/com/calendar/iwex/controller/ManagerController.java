@@ -28,13 +28,14 @@ public class ManagerController {
     @GetMapping("/manager")
     public String getManagerPage(Model model){
         List<TeacherModel> teachers = teacherService.getAllTeacher();
-        List<Manager> managers = examService.getAllStudent();
+        List<Manager> managers = managerService.getAllStudent();
         model.addAttribute("teachers",teachers);
         model.addAttribute("title","менеджер");
         model.addAttribute("examResults",managers);
 
         List<Gruppa> allGruppa = gruppaService.getAllGruppa();
         model.addAttribute("allGruppa",allGruppa);
+        model.addAttribute("totalStudent",managers.size());
 
         return "manager";
     }
@@ -52,14 +53,18 @@ public class ManagerController {
 
             List<Gruppa> allGruppa = gruppaService.getAllGruppa();
             model.addAttribute("allGruppa",allGruppa);
+            model.addAttribute("totalStudent",managers.size());
+
         }else {
-            List<Manager> managers = examService.getAllStudent();
+            List<Manager> managers = managerService.getAllStudent();
             model.addAttribute("teachers",teachers);
             model.addAttribute("title","менеджер");
             model.addAttribute("examResults",managers);
 
             List<Gruppa> allGruppa = gruppaService.getAllGruppa();
             model.addAttribute("allGruppa",allGruppa);
+            model.addAttribute("totalStudent",managers.size());
+
         }
 
         return "manager";
@@ -75,14 +80,16 @@ public class ManagerController {
             model.addAttribute("teachers",teachers);
             model.addAttribute("title","менеджер");
             model.addAttribute("examResults",managerList);
+            model.addAttribute("totalStudent",managerList.size());
 
             List<Gruppa> allGruppa = gruppaService.getAllGruppa();
             model.addAttribute("allGruppa",allGruppa);
         }else {
-            List<Manager> managers = examService.getAllStudent();
+            List<Manager> managers = managerService.getAllStudent();
             model.addAttribute("teachers",teachers);
             model.addAttribute("title","менеджер");
             model.addAttribute("examResults",managers);
+            model.addAttribute("totalStudent",managers.size());
 
             List<Gruppa> allGruppa = gruppaService.getAllGruppa();
             model.addAttribute("allGruppa",allGruppa);

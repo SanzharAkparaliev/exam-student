@@ -17,13 +17,13 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .antMatchers("/calendar","/manager","/saveEvent","/page/**").permitAll()
+                        .antMatchers("/calendar","/saveEvent","/page/**").permitAll()
                         .antMatchers("/", "/login", "/logout", "/error").permitAll()
                         .antMatchers("/css/**","/src/**","/vendors/**","/static/**", "/resources/**","/*.css","/*.js").permitAll()
                         .anyRequest().authenticated()
                 )
-                .csrf().disable()
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
@@ -44,10 +44,16 @@ public class WebSecurityConfig {
         UserDetails user =
                 User.withDefaultPasswordEncoder()
                         .username("admin")
-                        .password("iwex")
-                        .roles("USER")
+                        .password("pikkasopaulo93")
+                        .roles("ADMIN")
+                        .build();
+        UserDetails manager =
+                User.withDefaultPasswordEncoder()
+                        .username("manager")
+                        .password("bishkek312iwex")
+                        .roles("MANAGER")
                         .build();
 
-        return new InMemoryUserDetailsManager(user);
+        return new InMemoryUserDetailsManager(user,manager);
     }
 }

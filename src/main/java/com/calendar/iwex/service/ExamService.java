@@ -3,7 +3,6 @@ package com.calendar.iwex.service;
 import com.calendar.iwex.entity.*;
 import com.calendar.iwex.repository.ExamRepository;
 import com.calendar.iwex.repository.GruppaRepository;
-import com.calendar.iwex.repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +21,9 @@ public class ExamService {
     private RetakeService retakeService;
 
     @Autowired
-    private ManagerRepository managerRepository;
-    @Autowired
     private GruppaRepository gruppaRepository;
-
+    @Autowired
+    private ManagerService managerService;
 
 
     public List<Exam> getAllExam(){
@@ -41,18 +39,13 @@ public class ExamService {
 
     public void saveExam(Exam exam,Long groupId){
         Optional<Gruppa> gruppa = gruppaRepository.findById(groupId);
-
         exam.setGruppa(gruppa.get());
         exam.setTotal(exam.getSpeaking() + exam.getWriting());
         if(exam.getResult().equals("не сдал(а)")){
             retakeService.createRateke(exam);
+        }else {
+            managerService.saveManager(exam);
         }
-        Manager manager = new Manager();
-        manager.setDate(exam.getDate());
-        manager.setLevel(exam.getLevel());
-        manager.setStudentName(exam.getStudentName());
-        manager.setAnn(exam.getAnn());
-        managerRepository.save(manager);
         examRepository.save(exam);
     }
 
@@ -93,11 +86,12 @@ public class ExamService {
                 retakeService.createRatekeByRetake(byRetakeByAnn);
             }
         }
+        else {
+            managerService.saveManager(exam);
+        }
         examRepository.save(newExam);
     }
-    public List<Manager> getAllStudent(){
-        return managerRepository.findAll();
-    }
+
 
     public void updateExamRetake(Retake retake){
         Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
@@ -111,6 +105,8 @@ public class ExamService {
         exambyAnn.setAnn(retake.getAnn());
         exambyAnn.setTime(retake.getTime());
         exambyAnn.setStudentName(retake.getStudentName());
+        managerService.saveManager(exambyAnn);
+
         examRepository.save(exambyAnn);
     }
 }

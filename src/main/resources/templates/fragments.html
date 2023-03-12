@@ -44,12 +44,12 @@
                     </a>
 
                 </li>
-                <li  class="dropdown"  sec:authorize="isAuthenticated()" >
+                <li  class="dropdown"  sec:authorize="hasRole('ADMIN')" >
                     <a  sec:authorize="isAuthenticated()"   href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-pencil"></span>
                         <span class="mtext">Экзамен</span>
                     </a>
-                    <ul  sec:authorize="isAuthenticated()"  class="submenu">
+                    <ul  sec:authorize="hasRole('ADMIN')"  class="submenu">
                         <li th:each="teacher: ${teachers}" >
                             <a  sec:authorize="isAuthenticated()" href="javascript:;" class="dropdown-toggle " >
                                 <span class="mtext" th:text="${teacher.getName()}">Teacher</span>
@@ -62,7 +62,7 @@
                                 </li>
 
                                 <li class="dropdown ">
-                                    <a   sec:authorize="isAuthenticated()"  href="#" th:href="@{/group/{id}(id=${teacher.id})}">
+                                    <a   sec:authorize="hasRole('ADMIN')"  href="#" th:href="@{/group/{id}(id=${teacher.id})}">
                                         <span class="mtext" style="font-size:10px;">Добавить группу</span>
                                     </a>
                                 </li>
@@ -70,7 +70,7 @@
 
 
                         </li>
-                        <li  sec:authorize="isAuthenticated()"  class="text-center">
+                        <li  sec:authorize="hasRole('ADMIN')"  class="text-center">
                             <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">
                                 <span class="mtext" style="font-size:15px; color: #FFFFFF">добавить учителя</span>
                             </button>
@@ -80,36 +80,36 @@
                     </ul>
                 </li>
 
-                <li  sec:authorize="isAuthenticated()"  class="dropdown">
+                <li  sec:authorize="hasRole('ADMIN')"  class="dropdown">
                     <a  sec:authorize="isAuthenticated()" href="#" th:href="@{/retake}" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-clock-history"></span>
                         <span class="mtext">Пересдача</span>
                     </a>
 
                 </li>
-                <li   class="dropdown">
+                <li  sec:authorize="hasRole('MANAGER')"  class="dropdown">
                     <a href="#" th:href="@{/manager}" class="dropdown-toggle no-arrow">
                         <span class="micon fi-torso-business"></span>
                         <span class="mtext">Менеджер</span>
                     </a>
                 </li>
-                <li  sec:authorize="isAuthenticated()" class="dropdown">
+                <li  sec:authorize="hasRole('ADMIN')" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-file-person"></span>
                         <span class="mtext">ADMIN</span>
                     </a>
-                    <ul  sec:authorize="isAuthenticated()"  class="submenu">
-                        <li  sec:authorize="isAuthenticated()" >
-                            <a  sec:authorize="isAuthenticated()"  href="#" th:href="@{/edit/calendar}" class="dropdown-toggle no-arrow">
+                    <ul  sec:authorize="hasRole('ADMIN')"  class="submenu">
+                        <li  sec:authorize="hasRole('ADMIN')" >
+                            <a  sec:authorize="hasRole('ADMIN')"  href="#" th:href="@{/edit/calendar}" class="dropdown-toggle no-arrow">
                                 <span class="mtext">Расписание</span>
                             </a>
                         </li>
-                        <li  sec:authorize="isAuthenticated()" >
-                            <a  sec:authorize="isAuthenticated()"  href="#" th:href="@{/edit/teacher}" class="dropdown-toggle no-arrow">
+                        <li  sec:authorize="hasRole('ADMIN')" >
+                            <a  sec:authorize="hasRole('ADMIN')"  href="#" th:href="@{/edit/teacher}" class="dropdown-toggle no-arrow">
                                 <span class="mtext">Teachers</span>
                             </a>
                         </li>
-                        <li class="text-center"  sec:authorize="isAuthenticated()" >
+                        <li class="text-center"  sec:authorize="hasRole('ADMIN')" >
                             <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">
                                 <span class="micon bi bi-plus-lg" style="font-size: 22px; color: #FFFFFF"></span>
                             </button>
