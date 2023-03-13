@@ -55,7 +55,7 @@
                                 <span class="mtext" th:text="${teacher.getName()}">Teacher</span>
                             </a>
                             <ul style="display: none">
-                                <li  class="dropdown " th:each="gruppa: ${allGruppa}" th:if="${gruppa.getTeacher().getName() == teacher.getName()}">
+                                <li  class="dropdown " th:each="gruppa: ${allGruppa}" th:if="${gruppa.getTeacher().getId() == teacher.getId()}">
                                     <a  sec:authorize="isAuthenticated()" href="#" th:href="@{/group/get/{id}(id=${gruppa.id})}" >
                                         <span class="mtext" th:text="${gruppa.getName()}">AA</span>
                                     </a>
@@ -107,6 +107,11 @@
                         <li  sec:authorize="hasRole('ADMIN')" >
                             <a  sec:authorize="hasRole('ADMIN')"  href="#" th:href="@{/edit/teacher}" class="dropdown-toggle no-arrow">
                                 <span class="mtext">Teachers</span>
+                            </a>
+                        </li>
+                        <li  sec:authorize="hasRole('ADMIN')" >
+                            <a  sec:authorize="hasRole('ADMIN')"  href="#" th:href="@{/edit/students}" class="dropdown-toggle no-arrow">
+                                <span class="mtext">Students</span>
                             </a>
                         </li>
                         <li class="text-center"  sec:authorize="hasRole('ADMIN')" >
