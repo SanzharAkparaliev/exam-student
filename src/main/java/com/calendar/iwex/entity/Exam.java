@@ -27,6 +27,7 @@ public class Exam {
     private String result;
     private Integer total;
     private String CourseDates;
+    @Column(unique = true)
     private String ann;
 
 

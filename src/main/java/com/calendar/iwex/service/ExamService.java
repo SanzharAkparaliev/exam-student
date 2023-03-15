@@ -3,6 +3,7 @@ package com.calendar.iwex.service;
 import com.calendar.iwex.entity.*;
 import com.calendar.iwex.repository.ExamRepository;
 import com.calendar.iwex.repository.GruppaRepository;
+import com.calendar.iwex.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,8 @@ public class ExamService {
     @Autowired
     private ManagerService managerService;
 
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     public List<Exam> getAllExam(){
        return examRepository.findAll();
@@ -53,7 +56,7 @@ public class ExamService {
        return   examRepository.findById(examId);
     }
 
-    public void updateExam(Exam exam) {
+    public void updateExam(Exam exam,String teacher,String group) {
         Exam newExam = examRepository.findById(exam.getId()).get();
         newExam.setDate(exam.getDate());
         newExam.setComment(exam.getComment());
@@ -66,6 +69,8 @@ public class ExamService {
         newExam.setAnn(exam.getAnn());
         newExam.setTotal(exam.getSpeaking() + exam.getWriting());
         newExam.setStudentName(exam.getStudentName());
+
+
 
         Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getAnn());
 
@@ -89,25 +94,35 @@ public class ExamService {
         else {
             managerService.saveManager(exam);
         }
+        if (teacher != null && group != null) {
+            Teacher teacherByName = teacherRepository.getById(Long.valueOf(teacher));
+            Gruppa byTeacherAndName = gruppaRepository.findByTeacherAndName(teacherByName, group);
+            newExam.setGruppa(byTeacherAndName);
+        }
         examRepository.save(newExam);
     }
 
 
     public void updateExamRetake(Retake retake){
-        Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
-        exambyAnn.setResult(retake.getResult());
-        exambyAnn.setTotal(retake.getTotal());
-        exambyAnn.setSpeaking(retake.getSpeaking());
-        exambyAnn.setWriting(retake.getWriting());
-        exambyAnn.setDate(retake.getDate());
-        exambyAnn.setLevel(retake.getLevel());
-        exambyAnn.setComment(retake.getComment());
-        exambyAnn.setAnn(retake.getAnn());
-        exambyAnn.setTime(retake.getTime());
-        exambyAnn.setStudentName(retake.getStudentName());
-        managerService.saveManager(exambyAnn);
+        try {
+            Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
+            exambyAnn.setResult(retake.getResult());
+            exambyAnn.setTotal(retake.getTotal());
+            exambyAnn.setSpeaking(retake.getSpeaking());
+            exambyAnn.setWriting(retake.getWriting());
+            exambyAnn.setDate(retake.getDate());
+            exambyAnn.setLevel(retake.getLevel());
+            exambyAnn.setComment(retake.getComment());
+            exambyAnn.setAnn(retake.getAnn());
+            exambyAnn.setTime(retake.getTime());
+            exambyAnn.setStudentName(retake.getStudentName());
+            managerService.saveManager(exambyAnn);
 
-        examRepository.save(exambyAnn);
+            examRepository.save(exambyAnn);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 

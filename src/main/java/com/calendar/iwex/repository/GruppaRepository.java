@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface GruppaRepository extends JpaRepository<Gruppa,Long> {
     List<Gruppa> findByTeacher(Teacher teacher);
+
+    Gruppa findByTeacherAndName(Teacher teacher,String name);
 }

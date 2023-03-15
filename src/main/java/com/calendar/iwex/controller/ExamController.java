@@ -9,9 +9,11 @@ import com.calendar.iwex.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,35 +30,34 @@ public class ExamController {
     private RetakeService retakeService;
     @Autowired
     private GruppaService gruppaService;
-//
-//
-//    @GetMapping("/teacher/{id}")
-//    public String GetExamPage(@PathVariable("id") Long id, Model model){
-//        Optional<Teacher> teacher = teacherService.getTeacher(id);
-//        List<Exam> examByTeacher = examService.getExamByTeacher(teacher.get());
-//        List<Teacher> teachers = teacherService.getAllTeacher();
-//        model.addAttribute("teachers",teachers);
-//        model.addAttribute("examResults",examByTeacher);
-//        model.addAttribute("title","Экзамен");
-//        model.addAttribute("exam",new Exam());
-//        model.addAttribute("teacherId",teacher.get().getId());
-//        return "exam";
-//    }
-//
+
     @PostMapping("/save")
-    public String saveStudentExamInfo(@RequestParam("groupId") Long id,
-                                      @ModelAttribute("exam") Exam exam,
-                                      @RequestParam("ann") String ann
-                                      ){
-        examService.saveExam(exam,id);
-        return "redirect:/group/get/" + id;
+    public String saveStudentExamInfo (  @RequestParam("groupId") Long id, @ModelAttribute("exam") Exam exam,
+                                       @RequestParam("ann") String ann, @Valid HttpSession session, Model model, BindingResult result){
+        try {
+            if(result.hasErrors()){
+                model.addAttribute("exam",exam);
+                session.setAttribute("msg",new Message("Мыкдай ID менен студент катталган  :) Туура маалымат киргизиниз !!","alert-danger"));
+                return "redirect:/teacher/group/" + id;
+            }
+            examService.saveExam(exam,id);
+            return "redirect:/group/get/" + id;
+        }catch (Exception e){
+            e.printStackTrace();
+            model.addAttribute("exam",exam);
+            session.setAttribute("msg",new Message("Мыкдай ID менен студент катталган :) Туура маалымат киргизиниз !!","alert-danger"));
+            return "redirect:/teacher/group/" + id;
+        }
     }
     @PostMapping("/update")
     public String updateStudentExamInfo(@RequestParam("groupId") Long id,
                                       @ModelAttribute("exam") Exam exam,
-                                      @RequestParam("ann") String ann
+                                      @RequestParam("ann") String ann,
+                                        @RequestParam(value = "teacher",required = false)String teacher,
+                                        @RequestParam(value = "group",required = false) String group
     ){
-        examService.updateExam(exam);
+        System.out.println("Teacher = " + teacher + "  group" +group);
+        examService.updateExam(exam,teacher,group);
         return "redirect:/group/get/" + id;
     }
 
@@ -80,7 +81,6 @@ public class ExamController {
             model.addAttribute("student",exam.get());
             model.addAttribute("groupId",gruppaId);
             model.addAttribute("title",exam.get().getStudentName());
-
             List<Gruppa> allGruppa = gruppaService.getAllGruppa();
             model.addAttribute("allGruppa",allGruppa);
             return "updateStudentForm";
@@ -116,7 +116,7 @@ public class ExamController {
         model.addAttribute("title","Пересдача");
         model.addAttribute("exam",new Exam());
         model.addAttribute("examResults",allRetake);
-            List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
         model.addAttribute("allGruppa",allGruppa);
 
         return "retake";
@@ -129,7 +129,6 @@ public class ExamController {
         model.addAttribute("teachers",teachers);
         if(retake.isPresent()){
             model.addAttribute("student",retake.get());
-
             List<Gruppa> allGruppa = gruppaService.getAllGruppa();
             model.addAttribute("allGruppa",allGruppa);
 

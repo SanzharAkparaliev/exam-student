@@ -67,16 +67,12 @@
                                     </a>
                                 </li>
                             </ul>
-
-
                         </li>
                         <li  sec:authorize="hasRole('ADMIN')"  class="text-center">
                             <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">
                                 <span class="mtext" style="font-size:15px; color: #FFFFFF">добавить учителя</span>
                             </button>
                         </li>
-
-
                     </ul>
                 </li>
 
@@ -109,11 +105,7 @@
                                 <span class="mtext">Teachers</span>
                             </a>
                         </li>
-                        <li  sec:authorize="hasRole('ADMIN')" >
-                            <a  sec:authorize="hasRole('ADMIN')"  href="#" th:href="@{/edit/students}" class="dropdown-toggle no-arrow">
-                                <span class="mtext">Students</span>
-                            </a>
-                        </li>
+
                         <li class="text-center"  sec:authorize="hasRole('ADMIN')" >
                             <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">
                                 <span class="micon bi bi-plus-lg" style="font-size: 22px; color: #FFFFFF"></span>
