@@ -65,12 +65,16 @@
                                 <option>B 1+</option>
                             </select>
                         </div>
-                        <div class="row form-group pd-20">
+
+                        <div class="row form-group pd-20" >
                             <select name="teacher" class="form-control col" id="sel1" onchange="giveSelection(this.value)" required>
                                 <option  th:each="teacher : ${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getName()}"  th:selected="${student.getGruppa().teacher.getId() == teacher.getId()}"></option>
                             </select>
+                            <select name="group" class="form-control col" id="sel">
+                                <option th:text="${student.getGruppa().getName()}"></option>
+                            </select>
 
-                            <select name="group" class="form-control col"  id="sel2">
+                            <select style="display: none"  class="form-control col"  id="sel2">
                                 <option th:text="${student.getGruppa().getName()}"></option>
                                 <span th:each="group : ${allGruppa}">
                                     <option  th:selected="${student.getGruppa().getId() == group.getId()}"    th:data-option="${group.teacher.getId()}" th:text="${group.getName()}" required></option>
@@ -102,6 +106,7 @@
     var sel1 = document.querySelector('#sel1');
     var sel2 = document.querySelector('#sel2');
     var options2 = sel2.querySelectorAll('option');
+    var sel2 = document.querySelector('#sel');
 
     function giveSelection(selValue) {
         sel2.innerHTML = '';
