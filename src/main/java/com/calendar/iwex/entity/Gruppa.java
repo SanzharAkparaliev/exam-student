@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -25,4 +26,16 @@ public class Gruppa {
 
     @OneToMany(mappedBy = "gruppa",cascade = CascadeType.REMOVE)
     private Set<Exam> exams;
+
+
+    @ManyToOne
+    @JoinColumn(name = "archive_id")
+    private Archive archive;
+
+    // method to send the group to archive
+    public void sendToArchive(LocalDate archiveDate) {
+        Archive archive = new Archive(this.name, archiveDate);
+        archive.getGroups().add(this);
+        this.setArchive(archive);
+    }
 }

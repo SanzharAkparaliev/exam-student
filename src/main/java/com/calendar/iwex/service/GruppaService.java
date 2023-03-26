@@ -1,28 +1,57 @@
 package com.calendar.iwex.service;
 
+import com.calendar.iwex.entity.Archive;
+import com.calendar.iwex.entity.Exam;
 import com.calendar.iwex.entity.Gruppa;
 import com.calendar.iwex.entity.Teacher;
+import com.calendar.iwex.repository.ArchiveRepository;
 import com.calendar.iwex.repository.GruppaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class GruppaService {
     @Autowired
     private GruppaRepository gruppaRepository;
+    @Autowired
+    private ArchiveRepository archiveRepository;
+
+
+    public void sendToArchive(Long gruppaId, LocalDate archiveDate) {
+        Gruppa gruppa = gruppaRepository.findById(gruppaId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid gruppa id: " + gruppaId));
+
+        if (gruppa.getArchive() != null) {
+            throw new IllegalStateException("Gruppa is already in the archive");
+        }
+
+        Archive archive = new Archive(gruppa.getName(), archiveDate);
+        archive.getGroups().add(gruppa);
+
+        gruppa.setArchive(archive);
+        gruppa.setExams(Collections.emptySet());
+
+        archiveRepository.save(archive);
+        gruppaRepository.save(gruppa);
+    }
+
     public void createGruppa(Gruppa gruppa){
         gruppaRepository.save(gruppa);
     }
 
     public List<Gruppa> getGruppaByTeacher(Teacher teacher){
-        return gruppaRepository.findByTeacher(teacher);
+        Archive archive = null;
+        return gruppaRepository.findByTeacherAndArchive(teacher,archive);
     }
 
     public List<Gruppa> getAllGruppa(){
-        return gruppaRepository.findAll();
+        Archive archive = null;
+
+        return gruppaRepository.findByArchive(archive);
     }
 
     public Optional<Gruppa> getGruppaById(Long id){

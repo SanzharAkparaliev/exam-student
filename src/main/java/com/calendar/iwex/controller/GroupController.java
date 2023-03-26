@@ -1,18 +1,17 @@
 package com.calendar.iwex.controller;
 
-import com.calendar.iwex.entity.Exam;
-import com.calendar.iwex.entity.Gruppa;
-import com.calendar.iwex.entity.Teacher;
-import com.calendar.iwex.entity.TeacherModel;
+import com.calendar.iwex.entity.*;
 import com.calendar.iwex.service.ExamService;
 import com.calendar.iwex.service.GruppaService;
 import com.calendar.iwex.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +26,13 @@ public class GroupController {
     private GruppaService gruppaService;
     @Autowired
     private ExamService examService;
+    @GetMapping("/archive/group/{gruppaId}")
+    public String sendToArchive(@PathVariable Long gruppaId
+                                ) {
+        LocalDate date = LocalDate.now();
+        gruppaService.sendToArchive(gruppaId, date);
+        return "redirect:/";
+    }
 
     @GetMapping("/group/{id}")
     public String getGroupPage(Model model, @PathVariable("id") Long teacherId){
