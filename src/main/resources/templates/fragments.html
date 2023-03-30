@@ -105,6 +105,11 @@
                                 <span class="mtext">Teachers</span>
                             </a>
                         </li>
+                        <li  sec:authorize="hasRole('ADMIN')" >
+                            <a  sec:authorize="hasRole('ADMIN')"  href="#" th:href="@{/archive}" class="dropdown-toggle no-arrow">
+                                <span class="mtext">Архив</span>
+                            </a>
+                        </li>
 
                         <li class="text-center"  sec:authorize="hasRole('ADMIN')" >
                             <button class="btn" data-toggle="modal" data-target="#exampleModalTeacher">

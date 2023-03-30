@@ -67,4 +67,15 @@ public class GruppaService {
         byId.get().setName(groupName);
         gruppaRepository.save(byId.get());
     }
+
+    public void changingStatusArchive(Long id){
+        Gruppa gruppa = gruppaRepository.findById(id).get();
+        Archive archive = null;
+        gruppa.setArchive(archive);
+        gruppaRepository.save(gruppa);
+    }
+
+    public List<Gruppa> findAllGruppaInArchive(){
+        return gruppaRepository.findAll();
+    }
 }
