@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface RetakeRepository extends JpaRepository<Retake,Long> {
-    public Retake findByAnn(String ann);
+//    public Retake findByAnn(String ann);
+    Retake findByStudentName(String studentName);
 
     @Query(value = "select * from retake r where r.student_name like %:keyword% ", nativeQuery = true)
     public List<Retake> findByKeyWord(@Param("keyword") String keyword);

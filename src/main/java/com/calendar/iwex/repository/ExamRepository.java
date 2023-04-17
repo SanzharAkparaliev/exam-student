@@ -11,9 +11,8 @@ import java.util.List;
 
 @Repository
 public interface ExamRepository extends JpaRepository<Exam,Long> {
-//    public List<Exam> findByGroup(Teacher teacher);
-//
-    public Exam findByAnn(String ann);
+
+    public Exam findByStudentName(String studentName);
 
     public List<Exam> findByGruppa(Gruppa gruppa);
     public  void deleteByGruppaAndId(Gruppa gruppa,Long id);

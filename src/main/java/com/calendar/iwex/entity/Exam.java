@@ -19,6 +19,7 @@ public class Exam {
     private Long id;
     private String time;
     private String date;
+
     private String studentName;
     private Integer speaking;
     private Integer writing;
@@ -27,7 +28,6 @@ public class Exam {
     private String result;
     private Integer total;
     private String CourseDates;
-    @Column(unique = true)
     private String ann;
 
 

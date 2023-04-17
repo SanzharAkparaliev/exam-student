@@ -18,7 +18,7 @@ public class ManagerService {
 
 
     public void saveManager(Exam exam){
-        Manager student = managerRepository.getByAnn(exam.getAnn());
+        Manager student = managerRepository.findByStudentName(exam.getStudentName());
         if(student == null){
             Manager manager = new Manager();
             manager.setDate(exam.getDate());
@@ -27,8 +27,14 @@ public class ManagerService {
             manager.setAnn(exam.getAnn());
             managerRepository.save(manager);
         }else {
-            student.setLevel(exam.getLevel());
-            managerRepository.save(student);
+            managerRepository.delete(student);
+            Manager manager = new Manager();
+            manager.setLevel(exam.getLevel());
+            manager.setStudentName(exam.getStudentName());
+            manager.setLevel(exam.getLevel());
+            manager.setAnn(exam.getAnn());
+
+            managerRepository.save(manager);
         }
     }
     public List<Manager> searchManagerinfoByStudentName(String studentName){

@@ -41,15 +41,30 @@ public class ExamService {
     }
 
     public void saveExam(Exam exam,Long groupId){
-        Optional<Gruppa> gruppa = gruppaRepository.findById(groupId);
-        exam.setGruppa(gruppa.get());
-        exam.setTotal(exam.getSpeaking() + exam.getWriting());
-        if(exam.getResult().equals("не сдал(а)")){
-            retakeService.createRateke(exam);
+        Exam byStudentName = examRepository.findByStudentName(exam.getStudentName());
+        if(!(byStudentName == null)){
+            examRepository.delete(byStudentName);
+            Optional<Gruppa> gruppa = gruppaRepository.findById(groupId);
+            exam.setGruppa(gruppa.get());
+            exam.setTotal(exam.getSpeaking() + exam.getWriting());
+            if(exam.getResult().equals("не сдал(а)")){
+                retakeService.createRateke(exam);
+            }else {
+                managerService.saveManager(exam);
+            }
+            examRepository.save(exam);
         }else {
-            managerService.saveManager(exam);
+            Optional<Gruppa> gruppa = gruppaRepository.findById(groupId);
+            exam.setGruppa(gruppa.get());
+            exam.setTotal(exam.getSpeaking() + exam.getWriting());
+            if(exam.getResult().equals("не сдал(а)")){
+                retakeService.createRateke(exam);
+            }else {
+                managerService.saveManager(exam);
+            }
+            examRepository.save(exam);
         }
-        examRepository.save(exam);
+
     }
 
     public Optional<Exam> getExam(Long examId){
@@ -69,11 +84,10 @@ public class ExamService {
         newExam.setAnn(exam.getAnn());
         newExam.setTotal(exam.getSpeaking() + exam.getWriting());
         newExam.setStudentName(exam.getStudentName());
-
-
-
-        Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getAnn());
-
+        Retake byRetakeByAnn = retakeService.findByRetakeByAnn(exam.getStudentName());
+        if(!(byRetakeByAnn == null)){
+            byRetakeByAnn.setResult(newExam.getResult());
+        }
         if(exam.getResult().equals("не сдал(а)")){
             if(byRetakeByAnn == null){
                 retakeService.createRateke(newExam);
@@ -88,10 +102,13 @@ public class ExamService {
                 byRetakeByAnn.setTotal(exam.getSpeaking() + exam.getWriting());
                 byRetakeByAnn.setTime(exam.getTime());
                 byRetakeByAnn.setStudentName(exam.getStudentName());
+
                 retakeService.createRatekeByRetake(byRetakeByAnn);
+//                retakeService.updateRetake(byRetakeByAnn);
             }
         }
         else {
+            retakeService.updateRetake(byRetakeByAnn);
             managerService.saveManager(exam);
         }
         if (teacher != null && group != null) {
@@ -105,7 +122,7 @@ public class ExamService {
 
     public void updateExamRetake(Retake retake){
         try {
-            Exam exambyAnn = examRepository.findByAnn(retake.getAnn());
+            Exam exambyAnn = examRepository.findByStudentName(retake.getStudentName());
             exambyAnn.setResult(retake.getResult());
             exambyAnn.setTotal(retake.getTotal());
             exambyAnn.setSpeaking(retake.getSpeaking());

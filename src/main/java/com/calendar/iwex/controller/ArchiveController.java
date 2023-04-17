@@ -21,14 +21,10 @@ public class ArchiveController {
 
     @GetMapping("/archive")
     public String getArchivePage(Model model){
-
         List<Gruppa> allGruppa = gruppaService.getAllGruppa();
-
         List<Gruppa> Gruppa = gruppaService.findAllGruppaInArchive();
         List<TeacherModel> teachers = teacherService.getAllTeacher();
-
         model.addAttribute("teachers",teachers);
-
         model.addAttribute("allGruppa",allGruppa);
         model.addAttribute("title","Архив");
         model.addAttribute("Gruppa",Gruppa);

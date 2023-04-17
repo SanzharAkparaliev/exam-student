@@ -15,5 +15,5 @@ public interface ManagerRepository extends JpaRepository<Manager,Long> {
     public List<Manager> findByKeyWord(@Param("keyword") String keyword);
 
     public List<Manager> findByLevel(String level);
-    public Manager getByAnn(String ann);
+    public Manager findByStudentName(String studentName);
 }

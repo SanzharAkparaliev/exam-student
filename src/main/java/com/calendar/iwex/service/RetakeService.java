@@ -22,7 +22,7 @@ public class RetakeService {
     private ExamService examService;
 
     public void createRateke(Exam exam){
-        Retake byAnnRetake = retakeRepository.findByAnn(exam.getAnn());
+        Retake byAnnRetake = retakeRepository.findByStudentName(exam.getStudentName());
             if (byAnnRetake != null){
                 LocalDate Date = LocalDate.parse(exam.getDate());
                 byAnnRetake.setStudentName(exam.getStudentName());
@@ -56,7 +56,7 @@ public class RetakeService {
 
     }
     public void createRatekeByRetake(Retake exam){
-        Retake byAnnRetake = retakeRepository.findByAnn(exam.getAnn());
+        Retake byAnnRetake = retakeRepository.findByStudentName(exam.getStudentName());
         if (byAnnRetake != null){
             LocalDate Date = LocalDate.parse(exam.getDate());
             byAnnRetake.setStudentName(exam.getStudentName());
@@ -98,8 +98,8 @@ public class RetakeService {
         Optional<Retake> byIdRetake = retakeRepository.findById(studentId);
         retakeRepository.delete(byIdRetake.get());
     }
-    public Retake findByRetakeByAnn(String ann){
-        return retakeRepository.findByAnn(ann);
+    public Retake findByRetakeByAnn(String studentName){
+        return retakeRepository.findByStudentName(studentName);
     }
 
     public Optional<Retake> getRetake(Long id){
@@ -107,30 +107,35 @@ public class RetakeService {
     }
 
     public void updateRetake(Retake newRetake) {
-        Retake retake = retakeRepository.findById(newRetake.getId()).get();
-        retake.setComment(newRetake.getComment());
-        retake.setResult(newRetake.getResult());
-        retake.setWriting(newRetake.getWriting());
-        retake.setTotal(newRetake.getTotal());
-        retake.setTime(newRetake.getTime());
-        retake.setDate(newRetake.getDate());
-        retake.setSpeaking(newRetake.getSpeaking());
-        retake.setLevel(newRetake.getLevel());
-        retake.setTotal(newRetake.getSpeaking() + newRetake.getWriting());
-        retake.setStudentName(newRetake.getStudentName());
+        try {
+            Retake retake = retakeRepository.findById(newRetake.getId()).get();
+            retake.setComment(newRetake.getComment());
+            retake.setResult(newRetake.getResult());
+            retake.setWriting(newRetake.getWriting());
+            retake.setTotal(newRetake.getTotal());
+            retake.setTime(newRetake.getTime());
+            retake.setDate(newRetake.getDate());
+            retake.setSpeaking(newRetake.getSpeaking());
+            retake.setLevel(newRetake.getLevel());
+            retake.setTotal(newRetake.getSpeaking() + newRetake.getWriting());
+            retake.setStudentName(newRetake.getStudentName());
 
-        if(!newRetake.getResult().equals("не сдал(а)")){
-            try {
+            if(!newRetake.getResult().equals("не сдал(а)")){
+                try {
+                    examService.updateExamRetake(retake);
+                    retakeRepository.deleteById(retake.getId());
+                }catch (Exception e){
+
+                }
+
+            }else {
                 examService.updateExamRetake(retake);
-                retakeRepository.deleteById(retake.getId());
-            }catch (Exception e){
-
+                retakeRepository.save(retake);
             }
+        }catch (Exception e){
 
-        }else {
-            examService.updateExamRetake(retake);
-            retakeRepository.save(retake);
         }
+
     }
 
     public List<Retake> searchRetakeResultByStudentName(String studentName){

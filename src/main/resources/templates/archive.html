@@ -19,8 +19,8 @@
           <table class="data-table table stripe hover nowrap">
             <thead>
             <tr>
-              <th>ID</th>
               <th class="table-plus datatable-nosort">Группа</th>
+              <th class="table-plus datatable-nosort">Teacher</th>
 
               <th class="datatable-nosort">Архив</th>
             </tr>
@@ -28,10 +28,10 @@
             <tbody>
 
 
-            <tr th:each="group,iStat: ${Gruppa}"  th:if="${group.getArchive() != null}">
-              <th scope="row" th:text="${iStat.index + 1}">1</th>
-              <td class="table-plus" >
-                <a  href="" th:href="@{groups/{id}(id=${group.id})}" th:text="${group.getName()}"></a>
+            <tr th:each="group: ${Gruppa}"  th:if="${group.getArchive() != null}">
+              <td class="table-plus"th:text="${group.getName()}" >
+              </td>
+              <td class="table-plus"th:text="${group.getTeacher().getName()}" >
               </td>
               <td>
                 <div class="dropdown">

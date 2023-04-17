@@ -156,6 +156,9 @@ public class ExamController {
     @PostMapping("/searchretake")
     public String searchRetake(@RequestParam("studentName") String studentName,Model model){
         List<TeacherModel> teachers = teacherService.getAllTeacher();
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        model.addAttribute("allGruppa",allGruppa);
+
 
         if(studentName!=null){
             List<Retake> list = retakeService.searchRetakeResultByStudentName(studentName);
@@ -178,7 +181,8 @@ public class ExamController {
     @PostMapping("/searchlevelbyretake")
     public String searchRetakeByLevel(@RequestParam("level") String level,Model model){
         List<TeacherModel> teachers = teacherService.getAllTeacher();
-
+        List<Gruppa> allGruppa = gruppaService.getAllGruppa();
+        model.addAttribute("allGruppa",allGruppa);
         if(level!=null){
             List<Retake> list = retakeService.searchRetakeResultByLevel(level);
 
